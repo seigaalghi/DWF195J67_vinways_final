@@ -434,6 +434,26 @@ div.slick-center img {
   font-size: 15px;
 }
 
+/* ----------- */
+/* Pagination */
+/* ----------- */
+
+div.pagination {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+div.pagination i {
+  margin: 0px 40px;
+}
+
+div.pagination select {
+  margin: 0px 10px;
+}
+
 /* --------------------------------------- */
 /* Payment */
 /* --------------------------------------- */
@@ -739,7 +759,7 @@ div.artist img {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 300px;
+  width: 80%;
   margin-left: 10.2%;
   margin-bottom: 20px;
 }

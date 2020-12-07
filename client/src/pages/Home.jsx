@@ -9,6 +9,8 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
   const [listMusic, setListMusic] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [musicPerPage, setMusicPerPage] = useState(12);
+  const indexOflastMusic = currentPage * musicPerPage;
+  const indexOfFirstMusic = indexOflastMusic - musicPerPage;
 
   useEffect(() => {
     loadMusics();
@@ -20,13 +22,25 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
 
   useEffect(() => {
     if (musics) {
-      const indexOflastMusic = currentPage * musicPerPage;
-      const indexOfFirstMusic = indexOflastMusic - musicPerPage;
       setListMusic(musics.slice(indexOfFirstMusic, indexOflastMusic));
     }
-  }, [musics, currentPage]);
+  }, [musics, currentPage, indexOfFirstMusic, indexOflastMusic]);
 
   const [search, setSearch] = useState([]);
+
+  const prevHandler = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const nextHandler = () => {
+    if (musics) {
+      if (indexOflastMusic < musics.length) {
+        setCurrentPage((prev) => prev + 1);
+      }
+    }
+  };
 
   const searchhandler = (e) => {
     const list = musics
@@ -43,15 +57,21 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
       <div className='form-group'>
         <input type='text' placeholder={`Search..`} onChange={searchhandler} />
         <i className='fa fa-search'></i>
-        <span onClick={() => setCurrentPage((prev) => prev - 1)}>prev</span> {currentPage}{' '}
-        <span onClick={() => setCurrentPage((prev) => prev + 1)}>next</span>
-        <select value={musicPerPage} onChange={(e) => setMusicPerPage(e.target.value)}>
+      </div>
+      <div className='pagination'>
+        <label htmlFor='per-page'>Music per page</label>
+        <select value={musicPerPage} onChange={(e) => setMusicPerPage(e.target.value)} id='per-page'>
           <option value='12'>12</option>
           <option value='24'>24</option>
           <option value='36'>36</option>
           <option value='48'>48</option>
           <option value='60'>60</option>
         </select>
+      </div>
+      <div className='pagination'>
+        <i className='fas fa-step-backward' onClick={prevHandler}></i>
+        <span> {currentPage}</span>
+        <i className='fas fa-step-forward' onClick={nextHandler}></i>
       </div>
       <Contents musics={search.length > 0 ? search : listMusic} queue={musics} />
     </Fragment>
