@@ -838,3 +838,42 @@ img.loading-img {
     transform: rotate(360deg);
   }
 }
+
+/* --------------------------------------- */
+/* Management */
+/* --------------------------------------- */
+
+div.management {
+  position: relative;
+  top: 90px;
+  width: 80%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+div.management h1 {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+div.management hr {
+  margin: 5px;
+}
+
+div.management table {
+  margin: 20px auto;
+  width: 80%;
+}
+
+div.management table td,
+th {
+  padding: 5px 30px;
+}
+
+div.openner {
+  cursor: pointer;
+}
+
+div.openner:hover {
+  background-color: #00084d;
+}

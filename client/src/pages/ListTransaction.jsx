@@ -9,7 +9,7 @@ const ListTrans = ({ payment: { transactions, loading }, loadPayments }) => {
 
   useEffect(() => {
     loadPayments();
-  }, []);
+  }, [loadPayments]);
   return transactions || !loading ? (
     <Fragment>
       <div className='transaction'>

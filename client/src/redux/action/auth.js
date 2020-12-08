@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_ERROR, LOAD_USER, LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT, ADD_PLAYLIST, REMOVE_PLAYLIST } from '../types';
+import { AUTH_ERROR, LOAD_USER, LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT, ADD_PLAYLIST, REMOVE_PLAYLIST, DELETE_USER, LOAD_USERS } from '../types';
 import { setAlert } from './alert';
 import setAuth from '../utility/setAuthToken';
 
@@ -132,6 +132,46 @@ export const removePlaylist = (id) => async (dispatch) => {
     dispatch({
       type: REMOVE_PLAYLIST,
       payload: res.data.data,
+    });
+  } catch (error) {
+    if (error.response) {
+      if (error.response.data.message) {
+        dispatch(setAlert(error.response.data.message, 'danger'));
+      }
+    }
+  }
+};
+
+// =========================================================================================
+// LOAD USERS
+// =========================================================================================
+
+export const loadUsers = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/users`);
+    dispatch({
+      type: LOAD_USERS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    if (error.response) {
+      if (error.response.data.message) {
+        dispatch(setAlert(error.response.data.message, 'danger'));
+      }
+    }
+  }
+};
+
+// =========================================================================================
+// DELETE USER
+// =========================================================================================
+
+export const deleteUser = (UserId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/v1/user/${UserId}`);
+    dispatch({
+      type: DELETE_USER,
+      payload: { UserId },
     });
   } catch (error) {
     if (error.response) {

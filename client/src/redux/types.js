@@ -3,6 +3,8 @@
 // =====================================================
 
 export const LOAD_USER = 'LOAD_USER';
+export const LOAD_USERS = 'LOAD_USERS';
+export const DELETE_USER = 'DELETE_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
@@ -24,8 +26,10 @@ export const REMOVE_ALERT = 'REMOVE_ALERT';
 
 export const LOAD_MUSICS = 'LOAD_MUSICS';
 export const ADD_MUSIC = 'ADD_MUSIC';
+export const DELETE_MUSIC = 'DELETE_MUSIC';
 export const LOAD_ARTISTS = 'LOAD_ARTISTS';
 export const LOAD_ARTIST = 'LOAD_ARTIST';
+export const DELETE_ARTIST = 'DELETE_ARTIST';
 export const ADD_ARTIST = 'ADD_ARTIST';
 export const SET_QUEUE = 'SET_QUEUE';
 export const MUSIC_CLEAN = 'MUSIC_CLEAN';

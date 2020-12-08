@@ -11,6 +11,7 @@ import MusicPlayer from '../components/home/MusicPlayer';
 import Playlist from './Playlist';
 import Artist from './Artist';
 import { connect } from 'react-redux';
+import Management from './Management';
 
 const Registered = ({ player }) => {
   return (
@@ -23,6 +24,7 @@ const Registered = ({ player }) => {
       <AdminRoute path='/add-artist' exact component={AddArtist} />
       <AdminRoute path='/add-music' exact component={AddMusic} />
       <AdminRoute path='/list-trans' exact component={ListTransaction} />
+      <AdminRoute path='/management' exact component={Management} />
       {player && player.isOpen ? <MusicPlayer /> : null}
     </Fragment>
   );

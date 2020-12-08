@@ -5,10 +5,10 @@ const { User, Transaction } = require('../../models');
 // =================================================================================
 
 exports.approvePayment = async (req, res) => {
-  const userId = req.body.userId;
+  const UserId = req.body.UserId;
   const transactionId = req.params.id;
   try {
-    const user = await User.findOne({ where: { id: userId } });
+    const user = await User.findOne({ where: { id: UserId } });
 
     const transaction = await Transaction.findOne({ where: { id: transactionId } });
 
@@ -23,7 +23,7 @@ exports.approvePayment = async (req, res) => {
 
       const date = new Date(millisecond);
 
-      await User.update({ until: date, premium: true }, { where: { id: userId } });
+      await User.update({ until: date, premium: true }, { where: { id: UserId } });
 
       await Transaction.update({ status: 'APPROVED' }, { where: { id: transactionId } });
 
@@ -31,7 +31,7 @@ exports.approvePayment = async (req, res) => {
         where: { id: transactionId },
 
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'userId'],
+          exclude: ['createdAt', 'updatedAt', 'UserId'],
         },
         include: [
           {
@@ -56,7 +56,7 @@ exports.approvePayment = async (req, res) => {
 
       const date = new Date(millisecond);
 
-      await User.update({ until: date, premium: true }, { where: { id: userId } });
+      await User.update({ until: date, premium: true }, { where: { id: UserId } });
 
       await Transaction.update({ status: 'APPROVED' }, { where: { id: transactionId } });
 
@@ -64,7 +64,7 @@ exports.approvePayment = async (req, res) => {
         where: { id: transactionId },
 
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'userId'],
+          exclude: ['createdAt', 'updatedAt', 'UserId'],
         },
         include: [
           {
@@ -104,10 +104,10 @@ exports.approvePayment = async (req, res) => {
 // =================================================================================
 
 exports.rejectPayment = async (req, res) => {
-  const userId = req.body.userId;
+  const UserId = req.body.UserId;
   const transactionId = req.params.id;
   try {
-    const user = await User.findOne({ where: { id: userId } });
+    const user = await User.findOne({ where: { id: UserId } });
     const transaction = await Transaction.findOne({ where: { id: transactionId } });
     if (transaction.status === 'PENDING') {
       await Transaction.update({ status: 'REJECTED' }, { where: { id: transactionId } });
@@ -116,7 +116,7 @@ exports.rejectPayment = async (req, res) => {
         where: { id: transactionId },
 
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'userId'],
+          exclude: ['createdAt', 'updatedAt', 'UserId'],
         },
         include: [
           {
@@ -141,7 +141,7 @@ exports.rejectPayment = async (req, res) => {
 
       const date = new Date(millisecond);
 
-      await User.update({ until: date }, { where: { id: userId } });
+      await User.update({ until: date }, { where: { id: UserId } });
 
       await Transaction.update({ status: 'REJECTED' }, { where: { id: transactionId } });
 
@@ -149,7 +149,7 @@ exports.rejectPayment = async (req, res) => {
         where: { id: transactionId },
 
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'userId'],
+          exclude: ['createdAt', 'updatedAt', 'UserId'],
         },
         include: [
           {

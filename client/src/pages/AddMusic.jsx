@@ -16,7 +16,7 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
 
   useEffect(() => {
     loadArtists();
-  }, []);
+  }, [loadArtists]);
 
   const changeHandler = (e) => {
     setForMData({ ...formData, [e.target.name]: e.target.value });

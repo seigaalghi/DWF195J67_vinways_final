@@ -5,10 +5,10 @@ const { Playlist, User, Music, Transaction, Artist } = require('../../models');
 // =================================================================================
 
 exports.addPlaylist = async (req, res) => {
-  const { musicId } = req.params;
-  const userId = req.user.id;
+  const { MusicId } = req.params;
+  const UserId = req.user.id;
   try {
-    const check = await Playlist.findOne({ where: { userId, musicId } });
+    const check = await Playlist.findOne({ where: { UserId, MusicId } });
 
     if (check) {
       return res.status(400).json({
@@ -18,8 +18,8 @@ exports.addPlaylist = async (req, res) => {
     }
 
     const playlist = await Playlist.create({
-      userId: userId,
-      musicId: musicId,
+      UserId: UserId,
+      MusicId: MusicId,
     });
 
     if (!playlist) {
@@ -30,7 +30,7 @@ exports.addPlaylist = async (req, res) => {
     }
 
     const response = await User.findOne({
-      where: { id: userId },
+      where: { id: UserId },
       attributes: {
         exclude: ['createdAt', 'updatedAt', 'password'],
       },
@@ -84,10 +84,10 @@ exports.addPlaylist = async (req, res) => {
 // =================================================================================
 
 exports.removePlaylist = async (req, res) => {
-  const { musicId } = req.params;
-  const userId = req.user.id;
+  const { MusicId } = req.params;
+  const UserId = req.user.id;
   try {
-    const check = await Playlist.findOne({ where: { userId, musicId } });
+    const check = await Playlist.findOne({ where: { UserId, MusicId } });
 
     if (!check) {
       return res.status(400).json({
@@ -96,7 +96,7 @@ exports.removePlaylist = async (req, res) => {
       });
     }
 
-    const like = await Playlist.destroy({ where: { userId, musicId } });
+    const like = await Playlist.destroy({ where: { UserId, MusicId } });
 
     if (!like) {
       return res.status(400).json({
@@ -106,7 +106,7 @@ exports.removePlaylist = async (req, res) => {
     }
 
     const response = await User.findOne({
-      where: { id: userId },
+      where: { id: UserId },
       attributes: {
         exclude: ['createdAt', 'updatedAt', 'password'],
       },

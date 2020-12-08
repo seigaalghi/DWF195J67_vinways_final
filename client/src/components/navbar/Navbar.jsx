@@ -8,7 +8,7 @@ const Navbar = () => {
     <div className='navbar'>
       <div className='navbar-container'>
         <Link to='/' className='nav-icon'>
-          <span>C</span> <img src={kasetlittle} /> <span className='color-primary'>Ways</span>{' '}
+          <span>C</span> <img src={kasetlittle} alt='logo' /> <span className='color-primary'>Ways</span>{' '}
         </Link>
         <DropDown />
       </div>

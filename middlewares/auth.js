@@ -13,8 +13,6 @@ exports.auth = async (req, res, next) => {
 
   const token = header.replace('Bearer ', '');
 
-  console.log(token);
-
   try {
     const decoded = jwt.verify(token, secret);
     req.user = decoded;

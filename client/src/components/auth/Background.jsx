@@ -7,12 +7,12 @@ const Background = ({ form, link }) => {
   return (
     <div className='background'>
       <nav className='user-nav'>
-        <span>C</span> <img src={kasetlittle} /> <span className='color-primary'>Ways</span>
+        <span>C</span> <img src={kasetlittle} alt='logo' /> <span className='color-primary'>Ways</span>
       </nav>
       <div className='background-container'>
         <h1>Listening is</h1>
         <h1 className='everything'>
-          <img src={kaset} className='kaset' /> Everything
+          <img src={kaset} className='kaset' alt='logo' /> Everything
         </h1>
         <p>pay and access millions of songs</p>
         <Link to={link.to} className='btn btn-small'>

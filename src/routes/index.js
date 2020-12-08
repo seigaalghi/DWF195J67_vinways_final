@@ -75,16 +75,16 @@ router.post('/artist/', auth, adminAuth, fileUpload('img', null), postArtist);
 // User
 // ------------------------------------------------
 
-router.get('/users', getUsers);
-router.get('/user/:id', getUser);
+router.get('/users', auth, adminAuth, getUsers);
+router.get('/user/:id', auth, adminAuth, getUser);
 router.delete('/user/:id', auth, adminAuth, deleteUser);
 
 // ------------------------------------------------
 // Transaction
 // ------------------------------------------------
 
-router.get('/transactions', getTransactions);
-router.get('/transaction/:id', getTransaction);
+router.get('/transactions', auth, adminAuth, getTransactions);
+router.get('/transaction/:id', auth, adminAuth, getTransaction);
 router.post('/transaction', auth, fileUpload('img', null), postTransaction);
 router.put('/transaction/:id', auth, fileUpload('img', null), putTransaction);
 router.delete('/transaction/:id', auth, adminAuth, deleteTransaction);
@@ -93,15 +93,15 @@ router.delete('/transaction/:id', auth, adminAuth, deleteTransaction);
 // Like
 // ------------------------------------------------
 
-router.post('/music/like/:musicId', auth, addLike);
-router.delete('/music/like/:musicId', auth, removeLike);
+router.post('/music/like/:MusicId', auth, addLike);
+router.delete('/music/like/:MusicId', auth, removeLike);
 
 // ------------------------------------------------
 // Playlist
 // ------------------------------------------------
 
-router.post('/user/playlist/:musicId', auth, addPlaylist);
-router.delete('/user/playlist/:musicId', auth, removePlaylist);
+router.post('/user/playlist/:MusicId', auth, addPlaylist);
+router.delete('/user/playlist/:MusicId', auth, removePlaylist);
 
 // ------------------------------------------------
 // Auth

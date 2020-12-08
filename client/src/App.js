@@ -33,7 +33,7 @@ function App() {
             <Route path='/register' exact component={Register} />
             <PrivateRoute
               exact
-              path={['/', '/artist/:artistId', '/playlist/', '/payment', '/add-artist', '/add-music', '/list-trans']}
+              path={['/', '/artist/:artistId', '/playlist/', '/payment', '/add-artist', '/add-music', '/list-trans', '/management']}
               component={Registered}
             />
             <Route component={NotFound} />

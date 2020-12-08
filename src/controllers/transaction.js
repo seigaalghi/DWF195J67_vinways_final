@@ -9,7 +9,7 @@ exports.getTransactions = async (req, res) => {
   try {
     const transactions = await Transaction.findAll({
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'userId'],
+        exclude: ['createdAt', 'updatedAt', 'UserId'],
       },
       include: [
         {
@@ -88,11 +88,11 @@ exports.getTransaction = async (req, res) => {
 exports.postTransaction = async (req, res) => {
   const body = req.body;
   const file = req.files;
-  const userId = req.user.id;
+  const UserId = req.user.id;
   try {
     const schema = Joi.object({
       account: Joi.string().required(),
-      userId: Joi.number().required(),
+      UserId: Joi.number().required(),
       img: Joi.string().required(),
     });
 
@@ -100,7 +100,7 @@ exports.postTransaction = async (req, res) => {
       {
         ...req.body,
         img: file.img ? file.img[0].filename : null,
-        userId,
+        UserId,
       },
       { abortEarly: false }
     );
@@ -115,7 +115,7 @@ exports.postTransaction = async (req, res) => {
 
     const transaction = await Transaction.create({
       account: body.account,
-      userId,
+      UserId,
       img: file.img[0].filename,
     });
 
@@ -167,7 +167,7 @@ exports.putTransaction = async (req, res) => {
   try {
     const schema = Joi.object({
       account: Joi.string().required(),
-      userId: Joi.number().required(),
+      UserId: Joi.number().required(),
       img: Joi.string().required(),
     });
 
@@ -190,7 +190,7 @@ exports.putTransaction = async (req, res) => {
     const transaction = await Transaction.update(
       {
         account: body.account,
-        userId: body.userId,
+        UserId: body.UserId,
         img: file.img[0].filename,
       },
       {

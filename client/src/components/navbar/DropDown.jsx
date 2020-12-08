@@ -36,6 +36,9 @@ const DropDown = ({ auth: { loading, user }, userLogout }) => {
               <Link to='/list-trans' className='dropdown-menu'>
                 Purchase(s) <i className='fas fa-comment-dollar'></i>
               </Link>
+              <Link to='/management' className='dropdown-menu'>
+                Management <i className='fas fa-tasks'></i>
+              </Link>
               <div onClick={logout} className='dropdown-menu'>
                 Log Out <i className='fas fa-sign-out-alt' />
               </div>

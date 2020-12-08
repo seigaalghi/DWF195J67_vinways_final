@@ -1,5 +1,17 @@
 import axios from 'axios';
-import { LOAD_ARTISTS, LOAD_ARTIST, LOAD_MUSICS, MUSIC_ERROR, MUSIC_CLEAN, ADD_LIKE, REMOVE_LIKE, ADD_MUSIC, ADD_ARTIST } from '../types';
+import {
+  LOAD_ARTISTS,
+  LOAD_ARTIST,
+  LOAD_MUSICS,
+  MUSIC_ERROR,
+  MUSIC_CLEAN,
+  ADD_LIKE,
+  REMOVE_LIKE,
+  ADD_MUSIC,
+  ADD_ARTIST,
+  DELETE_MUSIC,
+  DELETE_ARTIST,
+} from '../types';
 import { setAlert } from './alert';
 
 // =========================================================================================
@@ -164,12 +176,58 @@ export const addLike = (id) => async (dispatch) => {
 // REMOVE LIKE
 // =========================================================================================
 
-export const removeLike = (musicId, userId) => async (dispatch) => {
+export const removeLike = (MusicId, UserId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/v1/music/like/${musicId}`);
+    await axios.delete(`/api/v1/music/like/${MusicId}`);
     dispatch({
       type: REMOVE_LIKE,
-      payload: { musicId, userId },
+      payload: { MusicId, UserId },
+    });
+  } catch (error) {
+    if (error.response) {
+      if (error.response.data.message) {
+        dispatch(setAlert(error.response.data.message, 'danger'));
+      }
+    }
+    dispatch({
+      type: MUSIC_ERROR,
+    });
+  }
+};
+
+// =========================================================================================
+// DELETE MUSIC
+// =========================================================================================
+
+export const deleteMusic = (MusicId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/v1/music/${MusicId}`);
+    dispatch({
+      type: DELETE_MUSIC,
+      payload: { MusicId },
+    });
+  } catch (error) {
+    if (error.response) {
+      if (error.response.data.message) {
+        dispatch(setAlert(error.response.data.message, 'danger'));
+      }
+    }
+    dispatch({
+      type: MUSIC_ERROR,
+    });
+  }
+};
+
+// =========================================================================================
+// DELETE ARTISTS
+// =========================================================================================
+
+export const deleteArtist = (ArtistId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/v1/artist/${ArtistId}`);
+    dispatch({
+      type: DELETE_ARTIST,
+      payload: { ArtistId },
     });
   } catch (error) {
     if (error.response) {

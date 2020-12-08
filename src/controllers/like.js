@@ -5,10 +5,10 @@ const { Like, Music, User, Artist } = require('../../models');
 // =================================================================================
 
 exports.addLike = async (req, res) => {
-  const { musicId } = req.params;
-  const userId = req.user.id;
+  const { MusicId } = req.params;
+  const UserId = req.user.id;
   try {
-    const check = await Like.findOne({ where: { userId, musicId } });
+    const check = await Like.findOne({ where: { UserId, MusicId } });
 
     if (check) {
       return res.status(400).json({
@@ -18,8 +18,8 @@ exports.addLike = async (req, res) => {
     }
 
     const like = await Like.create({
-      userId: userId,
-      musicId: musicId,
+      UserId: UserId,
+      MusicId: MusicId,
     });
 
     if (!like) {
@@ -30,7 +30,7 @@ exports.addLike = async (req, res) => {
     }
 
     const response = await Music.findOne({
-      where: { id: musicId },
+      where: { id: MusicId },
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: [
         {
@@ -70,10 +70,10 @@ exports.addLike = async (req, res) => {
 // =================================================================================
 
 exports.removeLike = async (req, res) => {
-  const { musicId } = req.params;
-  const userId = req.user.id;
+  const { MusicId } = req.params;
+  const UserId = req.user.id;
   try {
-    const check = await Like.findOne({ where: { userId, musicId } });
+    const check = await Like.findOne({ where: { UserId, MusicId } });
 
     if (!check) {
       return res.status(400).json({
@@ -82,7 +82,7 @@ exports.removeLike = async (req, res) => {
       });
     }
 
-    const like = await Like.destroy({ where: { userId, musicId } });
+    const like = await Like.destroy({ where: { UserId, MusicId } });
 
     if (!like) {
       return res.status(400).json({
