@@ -11,7 +11,7 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      artistId: {
+      ArtistId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {

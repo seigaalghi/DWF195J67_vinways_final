@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Like.belongsTo(models.Music, { foreignKey: 'musicId' });
-      Like.belongsTo(models.User, { foreignKey: 'userId' });
+      Like.belongsTo(models.Music, { foreignKey: 'MusicId' });
+      Like.belongsTo(models.User, { foreignKey: 'UserId' });
     }
   }
   Like.init(
     {
-      musicId: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER,
+      MusicId: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER,
     },
     {
       sequelize,

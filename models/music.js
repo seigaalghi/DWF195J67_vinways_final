@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Music.belongsTo(models.Artist, { foreignKey: 'artistId', as: 'artist' });
-      Music.belongsToMany(models.User, { through: { model: 'Likes' }, as: 'likes' });
-      Music.belongsToMany(models.User, { through: { model: 'Playlists' }, as: 'playlists' });
+      Music.belongsTo(models.Artist, { foreignKey: 'ArtistId', as: 'artist' });
+      Music.belongsToMany(models.User, { through: models.Like, as: 'likes' });
+      Music.belongsToMany(models.User, { through: models.Playlist, as: 'playlists' });
     }
   }
   Music.init(
     {
       title: DataTypes.STRING,
-      artistId: DataTypes.INTEGER,
+      ArtistId: DataTypes.INTEGER,
       year: DataTypes.STRING,
       img: DataTypes.STRING,
       audio: DataTypes.STRING,

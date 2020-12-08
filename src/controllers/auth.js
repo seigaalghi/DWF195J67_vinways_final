@@ -161,6 +161,7 @@ exports.loadUser = async (req, res) => {
       include: [
         {
           model: Music,
+          through: { attributes: [] },
           as: 'playlists',
           attributes: { exclude: ['createdAt', 'updatedAt'] },
           include: [
