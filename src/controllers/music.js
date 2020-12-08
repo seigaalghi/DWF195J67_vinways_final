@@ -15,7 +15,7 @@ exports.getMusics = async (req, res) => {
     if (until < now) {
       const musics = await Music.findAll({
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'artistId', 'audio'],
+          exclude: ['createdAt', 'updatedAt', 'ArtistId', 'audio'],
         },
         include: [
           {
@@ -41,7 +41,7 @@ exports.getMusics = async (req, res) => {
     } else {
       const musics = await Music.findAll({
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'artistId'],
+          exclude: ['createdAt', 'updatedAt', 'ArtistId'],
         },
         include: [
           {
@@ -178,7 +178,7 @@ exports.postMusic = async (req, res) => {
 
     const music = await Music.create({
       title: body.title,
-      artistId: body.artistId,
+      ArtistId: body.artistId,
       year: body.year,
       img: image.url,
       audio: audio.url,
@@ -280,7 +280,7 @@ exports.putMusic = async (req, res) => {
     const music = await Music.update(
       {
         title: body.title,
-        artistId: body.artistId,
+        ArtistId: body.artistId,
         year: body.year,
         img: image.url,
         audio: audio.url,
@@ -302,7 +302,7 @@ exports.putMusic = async (req, res) => {
     const response = await Music.findOne({
       where: { id: id },
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'artistId'],
+        exclude: ['createdAt', 'updatedAt', 'ArtistId'],
       },
       include: [
         {
