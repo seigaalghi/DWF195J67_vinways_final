@@ -12,6 +12,8 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
 export const AUTH_CLEAN = 'AUTH_CLEAN';
 export const LOGOUT = 'LOGOUT';
+export const REMOVE_PLAYLIST_LIKE = 'REMOVE_PLAYLIST_LIKE';
+export const ADD_PLAYLIST_LIKE = 'ADD_PLAYLIST_LIKE';
 
 // =====================================================
 // ALERT TYPES

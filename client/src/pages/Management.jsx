@@ -45,6 +45,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Status</th>
@@ -54,6 +55,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
           <tbody>
             {auth.users.map((user) => (
               <tr key={user.id}>
+                <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.premium ? 'Active' : 'Non Active'}</td>
@@ -78,6 +80,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Name</th>
               <th>Songs</th>
               <th>Start at</th>
@@ -87,6 +90,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
           <tbody>
             {music.artists.map((artist) => (
               <tr key={artist.id}>
+                <td>{artist.id}</td>
                 <td>{artist.name}</td>
                 <td>{artist.musics.length}</td>
                 <td>{artist.start}</td>
@@ -111,6 +115,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Title</th>
               <th>Year</th>
               <th>Artist</th>
@@ -120,6 +125,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
           <tbody>
             {music.musics.map((music) => (
               <tr key={music.id}>
+                <td>{music.id}</td>
                 <td>{music.title}</td>
                 <td>{music.year}</td>
                 <td>{music.artist.name}</td>

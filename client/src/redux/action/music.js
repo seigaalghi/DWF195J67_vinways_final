@@ -11,6 +11,8 @@ import {
   ADD_ARTIST,
   DELETE_MUSIC,
   DELETE_ARTIST,
+  REMOVE_PLAYLIST_LIKE,
+  ADD_PLAYLIST_LIKE,
 } from '../types';
 import { setAlert } from './alert';
 
@@ -160,6 +162,10 @@ export const addLike = (id) => async (dispatch) => {
       type: ADD_LIKE,
       payload: { ...res.data.data, id },
     });
+    dispatch({
+      type: ADD_PLAYLIST_LIKE,
+      payload: { ...res.data.data, id },
+    });
   } catch (error) {
     if (error.response) {
       if (error.response.data.message) {
@@ -181,6 +187,10 @@ export const removeLike = (MusicId, UserId) => async (dispatch) => {
     await axios.delete(`/api/v1/music/like/${MusicId}`);
     dispatch({
       type: REMOVE_LIKE,
+      payload: { MusicId, UserId },
+    });
+    dispatch({
+      type: REMOVE_PLAYLIST_LIKE,
       payload: { MusicId, UserId },
     });
   } catch (error) {

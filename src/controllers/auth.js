@@ -173,7 +173,7 @@ exports.loadUser = async (req, res) => {
             {
               model: User,
               as: 'likes',
-              attributes: { exclude: ['createdAt', 'updatedAt'] },
+              attributes: ['id', 'name'],
             },
           ],
         },

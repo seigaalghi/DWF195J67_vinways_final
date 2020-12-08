@@ -9,6 +9,8 @@ import {
   REMOVE_PLAYLIST,
   LOAD_USERS,
   DELETE_USER,
+  REMOVE_PLAYLIST_LIKE,
+  ADD_PLAYLIST_LIKE,
 } from '../types';
 
 const initialState = {
@@ -81,6 +83,25 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.filter((user) => user.id !== payload.UserId),
+      };
+
+    case ADD_PLAYLIST_LIKE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          playlists: state.user.playlists.map((play) => (play.id === payload.id ? payload.like : play)),
+        },
+      };
+    case REMOVE_PLAYLIST_LIKE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          playlists: state.user.playlists.map((play) =>
+            play.id === payload.MusicId ? { ...play, likes: play.likes.filter((like) => like.id !== payload.UserId) } : play
+          ),
+        },
       };
     default:
       return state;
