@@ -12,7 +12,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
     loadUsers();
     loadArtists();
     loadMusics();
-  }, []);
+  }, [loadUsers, loadArtists, loadMusics]);
 
   const deleteArtistHandler = (id) => {
     if (window.confirm('Are You Sure?')) {
