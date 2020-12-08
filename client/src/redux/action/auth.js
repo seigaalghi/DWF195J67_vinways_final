@@ -18,9 +18,9 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (error) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
+    // dispatch({
+    //   type: AUTH_ERROR,
+    // });
   }
 };
 
@@ -48,9 +48,9 @@ export const userRegister = ({ name, email, password }) => async (dispatch) => {
     if (error.response.data.message) {
       dispatch(setAlert(error.response.data.message, 'danger'));
     }
-    dispatch({
-      type: AUTH_ERROR,
-    });
+    // dispatch({
+    //   type: AUTH_ERROR,
+    // });
   }
 };
 
@@ -77,9 +77,9 @@ export const userLogin = ({ email, password }) => async (dispatch) => {
     if (error.response.data.message) {
       dispatch(setAlert(error.response.data.message, 'danger'));
     }
-    dispatch({
-      type: AUTH_ERROR,
-    });
+    // dispatch({
+    //   type: AUTH_ERROR,
+    // });
   }
 };
 
