@@ -19,7 +19,7 @@ const Artist = ({ music: { artist, loading }, loadArtist }) => {
       <div className='playlist-container'>
         <div className='artist'>
           <h1>{artist.name}'s Song(s)</h1>
-          <img src={`/api/v1/file/${artist.img}`} alt={artist.name} className='artist-banner' />
+          <img src={artist.img} alt={artist.name} className='artist-banner' />
           <div>
             <table>
               <thead>
