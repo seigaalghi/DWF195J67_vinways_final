@@ -66,10 +66,10 @@ const MusicPlayer = ({
   return music && musicPlayer.likes && !loading ? (
     <div className='music-player-container'>
       <p>{musicPlayer.title ? musicPlayer.title : ''}</p>
-      {musicPlayer.img ? <img src={musicPlayer.img ? `/api/v1/file/${musicPlayer.img}` : ''} alt={musicPlayer.title} /> : ''}
+      {musicPlayer.img ? <img src={musicPlayer.img ? musicPlayer.img : ''} alt={musicPlayer.title} /> : ''}
 
       <H5AudioPlayer
-        src={musicPlayer.audio ? `/api/v1/file/${musicPlayer.audio}` : ''}
+        src={musicPlayer.audio ? musicPlayer.audio : ''}
         className='music-player'
         onClickNext={nextHandler}
         onClickPrevious={prevHandler}

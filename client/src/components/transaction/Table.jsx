@@ -27,7 +27,7 @@ const Table = ({ headers, transactions, approvePayment, rejectPayment }) => {
               <td>{transaction.user.name}</td>
               <td>{transaction.account}</td>
               <td>
-                <img src={`http://localhost:5000/uploads/${transaction.img}`} alt={transaction.img} />
+                <img src={transaction.img} alt={transaction.img} />
               </td>
               <td>
                 {Math.round((new Date(transaction.user.until).getTime() - Date.now()) / (60 * 60 * 24 * 1000)) < 0 ? (

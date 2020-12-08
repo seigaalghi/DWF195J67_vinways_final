@@ -25,7 +25,7 @@ const SliderImg = ({ artists }) => {
           {artists.map((artist, index) => (
             <div className='slider' key={index}>
               <Link to={`/artist/${artist.id}`}>
-                <img src={`/api/v1/file/${artist.img}`} alt='' />
+                <img src={artist.img} alt={artist.name} />
               </Link>
             </div>
           ))}

@@ -75,7 +75,7 @@ exports.fileUpload = (image, audio) => {
       if (err) {
         if (err.code === 'LIMIT_FILE_SIZE') {
           return res.status(400).send({
-            message: 'Max file size exceeded (3Mb)',
+            message: 'Max file size exceeded (15Mb)',
           });
         }
       }

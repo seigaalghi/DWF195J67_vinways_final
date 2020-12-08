@@ -40,7 +40,7 @@ const Contents = ({ musics, queue, auth, setAlert, setPlayer, setQueue, addLike,
       <div className='content-container'>
         {musics.map((music, index) => (
           <div className='contents' key={index} onClick={() => handlerMusic(music)}>
-            <img src={`/api/v1/file/${music.img}`} alt={music.title} />
+            <img src={music.img} alt={music.title} />
             <div className='content'>
               <div className='song-title'>{music.title}</div>
               <div className='song-year'>{music.year}</div>

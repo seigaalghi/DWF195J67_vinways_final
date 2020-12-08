@@ -1,4 +1,5 @@
 const { Artist, Music, User } = require('../../models');
+const { uploads } = require('../../middlewares/cloudUpload');
 const Joi = require('joi');
 
 // =================================================================================
@@ -101,9 +102,18 @@ exports.postArtist = async (req, res) => {
       });
     }
 
+    const image = await uploads(req.files.img[0].path, 'coways/artist-images');
+
+    if (!image.url) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Failed to upload image',
+      });
+    }
+
     const artist = await Artist.create({
       name: body.name,
-      img: file.img[0].filename,
+      img: image.url,
       age: body.age,
       type: body.type,
       start: body.start,
@@ -165,10 +175,20 @@ exports.putArtist = async (req, res) => {
         errors: error.details.map((detail) => detail.message),
       });
     }
+
+    const image = await uploads(req.files.img[0].path, 'coways/artist-images');
+
+    if (!image.url) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Failed to upload image',
+      });
+    }
+
     const artist = await Artist.update(
       {
         name: body.name,
-        img: file.img[0].filename,
+        img: image.url,
         age: body.age,
         start: body.start,
         type: body.type,

@@ -1,4 +1,5 @@
 const { Music, Artist, User } = require('../../models');
+const { uploads } = require('../../middlewares/cloudUpload');
 const Joi = require('joi');
 
 // =================================================================================
@@ -132,6 +133,7 @@ exports.getMusic = async (req, res) => {
 exports.postMusic = async (req, res) => {
   const body = req.body;
   const file = req.files;
+  console.log(file);
   try {
     const schema = Joi.object({
       title: Joi.string().required(),
@@ -158,12 +160,28 @@ exports.postMusic = async (req, res) => {
       });
     }
 
+    const image = await uploads(req.files.img[0].path, 'coways/music-images');
+    const audio = await uploads(req.files.audio[0].path, 'coways/audio');
+
+    if (!image.url) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Failed to upload image',
+      });
+    }
+    if (!audio.url) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Failed to upload audio',
+      });
+    }
+
     const music = await Music.create({
       title: body.title,
       artistId: body.artistId,
       year: body.year,
-      img: file.img[0].filename,
-      audio: file.audio[0].filename,
+      img: image.url,
+      audio: audio.url,
     });
 
     if (!music) {
@@ -243,13 +261,29 @@ exports.putMusic = async (req, res) => {
       });
     }
 
+    const image = await uploads(req.files.img[0].path, 'coways/images');
+    const audio = await uploads(req.files.audio[0].path, 'coways/audio');
+
+    if (!image.url) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Failed to upload image',
+      });
+    }
+    if (!audio.url) {
+      return res.status(400).json({
+        status: 'failed',
+        message: 'Failed to upload audio',
+      });
+    }
+
     const music = await Music.update(
       {
         title: body.title,
         artistId: body.artistId,
         year: body.year,
-        img: file.img[0].filename,
-        audio: file.audio[0].filename,
+        img: image.url,
+        audio: audio.url,
       },
       {
         where: {
