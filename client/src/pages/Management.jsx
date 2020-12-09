@@ -33,21 +33,42 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
   const deleteArtistHandler = (id) => {
     setConfirm({
       message: 'Are You Sure?',
-      confirm: () => deleteArtist(id),
+      confirm: () => {
+        deleteArtist(id);
+        setConfirm({
+          message: 'Are You Sure?',
+          confirm: '',
+          isOpen: false,
+        });
+      },
       isOpen: true,
     });
   };
   const deleteUserHandler = (id) => {
     setConfirm({
       message: 'Are You Sure?',
-      confirm: () => deleteUser(id),
+      confirm: () => {
+        deleteUser(id);
+        setConfirm({
+          message: 'Are You Sure?',
+          confirm: '',
+          isOpen: false,
+        });
+      },
       isOpen: true,
     });
   };
   const deleteMusicHandler = (id) => {
     setConfirm({
       message: 'Are You Sure?',
-      confirm: () => deleteMusic(id),
+      confirm: () => {
+        deleteMusic(id);
+        setConfirm({
+          message: 'Are You Sure?',
+          confirm: '',
+          isOpen: false,
+        });
+      },
       isOpen: true,
     });
   };
