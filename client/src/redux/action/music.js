@@ -15,6 +15,7 @@ import {
   ADD_PLAYLIST_LIKE,
 } from '../types';
 import { setAlert, setUpload } from './alert';
+import { closePlayer } from './player';
 
 // =========================================================================================
 // LOAD MUSIC
@@ -221,6 +222,7 @@ export const removeLike = (MusicId, UserId) => async (dispatch) => {
 
 export const deleteMusic = (MusicId) => async (dispatch) => {
   try {
+    dispatch(closePlayer());
     await axios.delete(`/api/v1/music/${MusicId}`);
     dispatch({
       type: DELETE_MUSIC,

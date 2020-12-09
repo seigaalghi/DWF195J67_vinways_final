@@ -140,7 +140,7 @@ exports.postTransaction = async (req, res) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Transaction added successfully',
+      message: 'Thank you for subscribing to premium, your premium package will be active after our admin approves your transaction, thank you',
       data: {
         music: response,
       },
