@@ -29,7 +29,6 @@ const playerReducer = (state = initialState, action) => {
         ...state,
         music: null,
         queue: null,
-        loading: true,
       };
     default:
       return state;
