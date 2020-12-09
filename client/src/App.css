@@ -751,6 +751,10 @@ div.artist div table {
   table-layout: fixed;
 }
 
+div.artist div table th {
+  padding: 3px;
+}
+
 div.artist img {
   grid-area: img;
   height: 300px;
