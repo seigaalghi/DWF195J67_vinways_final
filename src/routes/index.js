@@ -59,7 +59,7 @@ const { fileDownload } = require('../controllers/file');
 router.get('/musics', auth, getMusics);
 router.get('/music/:id', auth, getMusic);
 router.post('/music', auth, adminAuth, uploader('img', 'audio'), postMusic);
-router.put('/music/:id', auth, adminAuth, fileUpload('img', 'audio'), putMusic);
+router.put('/music/:id', auth, adminAuth, uploader('img', 'audio'), putMusic);
 router.delete('/music/:id', auth, adminAuth, deleteMusic);
 
 // ------------------------------------------------
@@ -69,8 +69,8 @@ router.delete('/music/:id', auth, adminAuth, deleteMusic);
 router.get('/artists', auth, getArtists);
 router.get('/artist/:id', auth, getArtist);
 router.delete('/artist/:id', auth, adminAuth, deleteArtist);
-router.put('/artist/:id', auth, adminAuth, fileUpload('img', null), putArtist);
-router.post('/artist/', auth, adminAuth, fileUpload('img', null), postArtist);
+router.put('/artist/:id', auth, adminAuth, uploader('img', null), putArtist);
+router.post('/artist/', auth, adminAuth, uploader('img', null), postArtist);
 
 // ------------------------------------------------
 // User
@@ -86,8 +86,8 @@ router.delete('/user/:id', auth, adminAuth, deleteUser);
 
 router.get('/transactions', auth, adminAuth, getTransactions);
 router.get('/transaction/:id', auth, adminAuth, getTransaction);
-router.post('/transaction', auth, fileUpload('img', null), postTransaction);
-router.put('/transaction/:id', auth, fileUpload('img', null), putTransaction);
+router.post('/transaction', auth, uploader('img', null), postTransaction);
+router.put('/transaction/:id', auth, uploader('img', null), putTransaction);
 router.delete('/transaction/:id', auth, adminAuth, deleteTransaction);
 
 // ------------------------------------------------

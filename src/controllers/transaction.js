@@ -99,7 +99,7 @@ exports.postTransaction = async (req, res) => {
     const { error } = schema.validate(
       {
         ...req.body,
-        img: file.img ? file.img[0].filename : null,
+        img: file.img ? file.img[0].path : null,
         UserId,
       },
       { abortEarly: false }
@@ -116,7 +116,7 @@ exports.postTransaction = async (req, res) => {
     const transaction = await Transaction.create({
       account: body.account,
       UserId,
-      img: file.img[0].filename,
+      img: file.img[0].path,
     });
 
     if (!transaction) {
