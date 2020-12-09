@@ -825,6 +825,8 @@ div.loading-spinner {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #000000bd;
+  z-index: 99;
 }
 
 img.loading-img {
