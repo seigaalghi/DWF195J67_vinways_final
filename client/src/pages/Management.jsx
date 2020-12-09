@@ -3,11 +3,27 @@ import { connect } from 'react-redux';
 import { deleteUser, loadUsers } from '../redux/action/auth';
 import { deleteArtist, deleteMusic, loadArtists, loadMusics } from '../redux/action/music';
 import Loading from '../components/Loading';
+import Confirm from '../components/Confirm';
 
 const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArtist, deleteMusic, deleteUser }) => {
   const [userOpen, setUserOpen] = useState(false);
   const [musicOpen, setMusicOpen] = useState(false);
   const [artistOpen, setArtistOpen] = useState(false);
+  const [confirm, setConfirm] = useState({
+    message: 'Are You Sure?',
+    confirm: '',
+    isOpen: false,
+  });
+  const closeHandler = (e) => {
+    if (e.target === e.currentTarget) {
+      setConfirm({
+        message: 'Are You Sure?',
+        confirm: '',
+        isOpen: false,
+      });
+    }
+  };
+
   useEffect(() => {
     loadUsers();
     loadArtists();
@@ -15,25 +31,32 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
   }, [loadUsers, loadArtists, loadMusics]);
 
   const deleteArtistHandler = (id) => {
-    if (window.confirm('Are You Sure?')) {
-      deleteArtist(id);
-    }
+    setConfirm({
+      message: 'Are You Sure?',
+      confirm: () => deleteArtist(id),
+      isOpen: true,
+    });
   };
   const deleteUserHandler = (id) => {
-    if (window.confirm('Are You Sure?')) {
-      deleteUser(id);
-    }
+    setConfirm({
+      message: 'Are You Sure?',
+      confirm: () => deleteUser(id),
+      isOpen: true,
+    });
   };
   const deleteMusicHandler = (id) => {
-    if (window.confirm('Are You Sure?')) {
-      deleteMusic(id);
-    }
+    setConfirm({
+      message: 'Are You Sure?',
+      confirm: () => deleteMusic(id),
+      isOpen: true,
+    });
   };
 
   return auth.loading || music.loading || !auth || !music ? (
     <Loading />
   ) : (
     <div className='management'>
+      <Confirm message={confirm.message} close={closeHandler} isOpen={confirm.isOpen} confirm={confirm.confirm} />
       <h1>Management</h1>
       <div className='openner' onClick={() => setUserOpen(!userOpen)}>
         <hr />
