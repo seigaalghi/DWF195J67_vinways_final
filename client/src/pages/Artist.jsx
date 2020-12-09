@@ -24,7 +24,7 @@ const Artist = ({ music: { artist, loading }, loadArtist }) => {
             <table>
               <thead>
                 <tr>
-                  <th>Description :</th>
+                  <th>Description</th>
                   <th></th>
                 </tr>
               </thead>
