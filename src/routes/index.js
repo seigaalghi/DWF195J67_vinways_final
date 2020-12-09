@@ -10,6 +10,7 @@ const router = express.Router();
 const { auth, adminAuth } = require('../../middlewares/auth');
 const { fileUpload } = require('../../middlewares/fileUpload');
 const { premium } = require('../../middlewares/premium');
+const { uploader } = require('../../middlewares/uploader');
 
 // Artist Actions
 
@@ -57,7 +58,7 @@ const { fileDownload } = require('../controllers/file');
 
 router.get('/musics', auth, getMusics);
 router.get('/music/:id', auth, getMusic);
-router.post('/music', auth, adminAuth, fileUpload('img', 'audio'), postMusic);
+router.post('/music', auth, adminAuth, uploader('img', 'audio'), postMusic);
 router.put('/music/:id', auth, adminAuth, fileUpload('img', 'audio'), putMusic);
 router.delete('/music/:id', auth, adminAuth, deleteMusic);
 

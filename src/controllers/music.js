@@ -1,5 +1,4 @@
 const { Music, Artist, User } = require('../../models');
-const { uploads } = require('../../middlewares/cloudUpload');
 const Joi = require('joi');
 
 // =================================================================================
@@ -146,8 +145,8 @@ exports.postMusic = async (req, res) => {
     const { error } = schema.validate(
       {
         ...req.body,
-        audio: file.audio ? file.audio[0].filename : null,
-        img: file.img ? file.img[0].filename : null,
+        audio: file.audio ? file.audio[0].path : null,
+        img: file.img ? file.img[0].path : null,
       },
       { abortEarly: false }
     );
@@ -160,28 +159,12 @@ exports.postMusic = async (req, res) => {
       });
     }
 
-    const image = await uploads(req.files.img[0].path, 'coways/music-images');
-    const audio = await uploads(req.files.audio[0].path, 'coways/audio');
-
-    if (!image.url) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Failed to upload image',
-      });
-    }
-    if (!audio.url) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Failed to upload audio',
-      });
-    }
-
     const music = await Music.create({
       title: body.title,
       ArtistId: body.artistId,
       year: body.year,
-      img: image.url,
-      audio: audio.url,
+      img: file.img[0].path,
+      audio: file.audio[0].path,
     });
 
     if (!music) {
@@ -247,8 +230,8 @@ exports.putMusic = async (req, res) => {
     const { error } = schema.validate(
       {
         ...req.body,
-        audio: file.audio ? file.audio[0].filename : null,
-        img: file.img ? file.img[0].filename : null,
+        audio: file.audio ? file.audio[0].path : null,
+        img: file.img ? file.img[0].path : null,
       },
       { abortEarly: false }
     );
@@ -261,29 +244,13 @@ exports.putMusic = async (req, res) => {
       });
     }
 
-    const image = await uploads(req.files.img[0].path, 'coways/images');
-    const audio = await uploads(req.files.audio[0].path, 'coways/audio');
-
-    if (!image.url) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Failed to upload image',
-      });
-    }
-    if (!audio.url) {
-      return res.status(400).json({
-        status: 'failed',
-        message: 'Failed to upload audio',
-      });
-    }
-
     const music = await Music.update(
       {
         title: body.title,
         ArtistId: body.artistId,
         year: body.year,
-        img: image.url,
-        audio: audio.url,
+        img: file.img[0].path,
+        audio: file.audio[0].path,
       },
       {
         where: {
