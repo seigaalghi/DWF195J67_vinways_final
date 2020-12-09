@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Registered from './pages/Registered';
 import NotFound from './pages/NotFound';
+import PrivateRoute from './components/PrivateRoute';
+import UploadProgres from './components/UploadProgres';
 
 // REDUX
 import store from './redux/store';
@@ -12,7 +14,6 @@ import { Provider } from 'react-redux';
 import setAuth from './redux/utility/setAuthToken';
 import { loadUser } from './redux/action/auth';
 import { useEffect } from 'react';
-import PrivateRoute from './components/PrivateRoute';
 
 if (localStorage.token) {
   setAuth(localStorage.token);
@@ -28,6 +29,7 @@ function App() {
       <Router>
         <div className='App'>
           <PopUp />
+          <UploadProgres />
           <Switch>
             <Route path='/login' exact component={Login} />
             <Route path='/register' exact component={Register} />

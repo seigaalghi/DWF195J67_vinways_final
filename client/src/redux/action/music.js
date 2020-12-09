@@ -14,7 +14,7 @@ import {
   REMOVE_PLAYLIST_LIKE,
   ADD_PLAYLIST_LIKE,
 } from '../types';
-import { setAlert } from './alert';
+import { setAlert, setUpload } from './alert';
 
 // =========================================================================================
 // LOAD MUSIC
@@ -48,6 +48,11 @@ export const addMusic = (data) => async (dispatch) => {
     const config = {
       headers: {
         'Content-type': 'multipart/form-data',
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        console.log(percentage);
+        dispatch(setUpload(percentage));
       },
     };
     const res = await axios.post('/api/v1/music/', data, config);
@@ -120,6 +125,11 @@ export const addArtist = (data) => async (dispatch) => {
     const config = {
       headers: {
         'Content-type': 'multipart/form-data',
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        console.log(percentage);
+        dispatch(setUpload(percentage));
       },
     };
     const res = await axios.post('/api/v1/artist/', data, config);

@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { GET_PAYMENTS, UPLOAD_PAYMENT, APPROVE, REJECT } from '../types';
-import { setAlert } from './alert';
+import { setAlert, setUpload } from './alert';
 
 export const uploadPayment = (data) => async (dispatch) => {
   try {
     const config = {
       headers: {
         'Content-type': 'multipart/form-data',
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        console.log(percentage);
+        dispatch(setUpload(percentage));
       },
     };
     const res = await axios.post('/api/v1/transaction/', data, config);
@@ -40,13 +45,13 @@ export const loadPayments = () => async (dispatch) => {
   }
 };
 
-export const approvePayment = (userId, transactionId) => async (dispatch) => {
+export const approvePayment = (UserId, transactionId) => async (dispatch) => {
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
-  const body = JSON.stringify({ userId });
+  const body = JSON.stringify({ UserId });
   try {
     const res = await axios.post(`/api/v1/admin/${transactionId}`, body, config);
 
@@ -64,13 +69,13 @@ export const approvePayment = (userId, transactionId) => async (dispatch) => {
   }
 };
 
-export const rejectPayment = (userId, transactionId) => async (dispatch) => {
+export const rejectPayment = (UserId, transactionId) => async (dispatch) => {
   const config = {
     headers: {
       'Content-type': 'application/json',
     },
   };
-  const body = JSON.stringify({ userId });
+  const body = JSON.stringify({ UserId });
   try {
     const res = await axios.put(`/api/v1/admin/${transactionId}`, body, config);
 

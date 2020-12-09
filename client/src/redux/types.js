@@ -21,6 +21,7 @@ export const ADD_PLAYLIST_LIKE = 'ADD_PLAYLIST_LIKE';
 
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
+export const SET_UPLOAD = 'SET_UPLOAD';
 
 // =====================================================
 // MUSIC TYPES

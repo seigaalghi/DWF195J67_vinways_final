@@ -554,9 +554,15 @@ div.transaction {
   margin-top: 90px;
 }
 
-div.transaction img {
+div.transaction img.thumbnail {
   max-width: 100px;
   max-height: 100px;
+  cursor: pointer;
+}
+
+div.transaction img.thumbnail:hover {
+  box-shadow: 0px 0px 3px 3px#00d475;
+  transform: scale(1.1);
 }
 
 div.transaction table {
@@ -877,4 +883,57 @@ div.openner {
 
 div.openner:hover {
   background-color: #00084d;
+}
+
+/* --------------------------------------- */
+/* Upload Progres */
+/* --------------------------------------- */
+
+div.progress {
+  display: flex;
+  position: fixed;
+  z-index: 90;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000105da;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+div.progress-value {
+  width: 400px;
+}
+
+div.progress input {
+  width: 400px;
+  height: 80px;
+}
+
+/* --------------------------------------- */
+/* Transaction modal */
+/* --------------------------------------- */
+
+div.modal-container {
+  display: flex;
+  position: fixed;
+  z-index: 90;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000105da;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+div.modal-container div.transaction-modal img {
+  position: relative;
+  display: block;
+  max-width: 700px;
+  max-height: 700px;
 }

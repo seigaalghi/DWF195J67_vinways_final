@@ -1,10 +1,14 @@
-const { SET_ALERT, REMOVE_ALERT } = require('../types');
+const { SET_ALERT, REMOVE_ALERT, SET_UPLOAD } = require('../types');
 
 const initialState = {
   loading: true,
   isOpen: false,
   message: '',
   alertType: '',
+  uploadProgress: {
+    progress: 0,
+    isOpen: false,
+  },
 };
 
 const alertReducer = (state = initialState, action) => {
@@ -18,6 +22,15 @@ const alertReducer = (state = initialState, action) => {
         alertType: payload.alertType,
         loading: false,
       };
+    case SET_UPLOAD:
+      return {
+        ...state,
+        loading: false,
+        uploadProgress: {
+          progress: payload,
+          isOpen: true,
+        },
+      };
     case REMOVE_ALERT:
       return {
         ...state,
@@ -25,6 +38,10 @@ const alertReducer = (state = initialState, action) => {
         message: '',
         alertType: '',
         loading: false,
+        uploadProgress: {
+          progress: 0,
+          isOpen: false,
+        },
       };
     default:
       return state;

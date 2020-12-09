@@ -237,7 +237,7 @@ exports.putTransaction = async (req, res) => {
 };
 
 // =================================================================================
-// DELETE MUSIC
+// DELETE Transaction
 // =================================================================================
 
 exports.deleteTransaction = async (req, res) => {

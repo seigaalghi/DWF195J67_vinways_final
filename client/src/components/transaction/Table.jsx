@@ -1,8 +1,23 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { approvePayment, rejectPayment } from '../../redux/action/payment';
 import { connect } from 'react-redux';
+import Modal from '../Modal';
 
 const Table = ({ headers, transactions, approvePayment, rejectPayment }) => {
+  const [modal, setModal] = useState({
+    isOpen: false,
+    src: '',
+  });
+
+  const closeModal = (e) => {
+    if (e.target === e.currentTarget) {
+      setModal({
+        isOpen: false,
+        src: '',
+      });
+    }
+  };
+
   const approveHanlder = (userId, transactionId) => {
     approvePayment(userId, transactionId);
   };
@@ -12,6 +27,7 @@ const Table = ({ headers, transactions, approvePayment, rejectPayment }) => {
   };
   return (
     <Fragment>
+      <Modal source={modal.src} isOpen={modal.isOpen} close={closeModal} />
       <table>
         <thead>
           <tr>
@@ -27,7 +43,12 @@ const Table = ({ headers, transactions, approvePayment, rejectPayment }) => {
               <td>{transaction.user.name}</td>
               <td>{transaction.account}</td>
               <td>
-                <img src={transaction.img} alt={transaction.img} />
+                <img
+                  src={transaction.img}
+                  alt={transaction.img}
+                  onClick={() => setModal({ src: transaction.img, isOpen: true })}
+                  className='thumbnail'
+                />
               </td>
               <td>
                 {Math.round((new Date(transaction.user.until).getTime() - Date.now()) / (60 * 60 * 24 * 1000)) < 0 ? (
