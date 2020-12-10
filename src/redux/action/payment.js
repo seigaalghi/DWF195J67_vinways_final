@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_PAYMENTS, UPLOAD_PAYMENT, APPROVE, REJECT } from '../types';
 import { setAlert, setUpload } from './alert';
+import baseUrl from '../utility/baseUrl';
 
 export const uploadPayment = (data) => async (dispatch) => {
   try {

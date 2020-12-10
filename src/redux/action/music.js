@@ -16,6 +16,7 @@ import {
 } from '../types';
 import { setAlert, setUpload } from './alert';
 import { closePlayer } from './player';
+import baseUrl from '../utility/baseUrl';
 
 // =========================================================================================
 // LOAD MUSIC
