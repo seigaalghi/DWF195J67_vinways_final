@@ -16,13 +16,14 @@ import {
 } from '../types';
 import { setAlert, setUpload } from './alert';
 import { closePlayer } from './player';
-import baseUrl from '../utility/baseUrl';
+import { baseUrl } from '../utility/baseUrl';
 
 // =========================================================================================
 // LOAD MUSIC
 // =========================================================================================
 
 export const loadMusics = () => async (dispatch) => {
+  console.log(baseUrl);
   try {
     const res = await axios.get(`${baseUrl}/api/v1/musics`);
     dispatch({

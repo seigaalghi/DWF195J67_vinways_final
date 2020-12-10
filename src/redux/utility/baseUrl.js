@@ -1,1 +1,1 @@
-export default baseUrl = 'https://seiga-vinways.herokuapp.com/';
+export const baseUrl = 'https://seiga-vinways.herokuapp.com';

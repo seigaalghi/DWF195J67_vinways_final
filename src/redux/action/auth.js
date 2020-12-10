@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AUTH_ERROR, LOAD_USER, LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT, ADD_PLAYLIST, REMOVE_PLAYLIST, DELETE_USER, LOAD_USERS } from '../types';
 import { setAlert } from './alert';
 import setAuth from '../utility/setAuthToken';
-import baseUrl from '../utility/baseUrl';
+import { baseUrl } from '../utility/baseUrl';
 
 // =====================================================================
 // Load User
