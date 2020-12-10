@@ -14,7 +14,7 @@ export const uploadPayment = (data) => async (dispatch) => {
         dispatch(setUpload(percentage));
       },
     };
-    const res = await axios.post('/api/v1/transaction/', data, config);
+    const res = await axios.post(`${baseUrl}/api/v1/transaction/`, data, config);
     dispatch({
       type: UPLOAD_PAYMENT,
       payload: res.data.data,
@@ -31,7 +31,7 @@ export const uploadPayment = (data) => async (dispatch) => {
 
 export const loadPayments = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/v1/transactions/');
+    const res = await axios.get(`${baseUrl}/api/v1/transactions/`);
     dispatch({
       type: GET_PAYMENTS,
       payload: res.data.data,
@@ -53,7 +53,7 @@ export const approvePayment = (UserId, transactionId) => async (dispatch) => {
   };
   const body = JSON.stringify({ UserId });
   try {
-    const res = await axios.post(`/api/v1/admin/${transactionId}`, body, config);
+    const res = await axios.post(`${baseUrl}/api/v1/admin/${transactionId}`, body, config);
 
     dispatch({
       type: APPROVE,
@@ -77,7 +77,7 @@ export const rejectPayment = (UserId, transactionId) => async (dispatch) => {
   };
   const body = JSON.stringify({ UserId });
   try {
-    const res = await axios.put(`/api/v1/admin/${transactionId}`, body, config);
+    const res = await axios.put(`${baseUrl}/api/v1/admin/${transactionId}`, body, config);
 
     dispatch({
       type: REJECT,

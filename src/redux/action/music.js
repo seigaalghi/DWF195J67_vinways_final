@@ -23,7 +23,7 @@ import { closePlayer } from './player';
 
 export const loadMusics = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/v1/musics');
+    const res = await axios.get(`${baseUrl}/api/v1/musics`);
     dispatch({
       type: LOAD_MUSICS,
       payload: res.data.data,
@@ -56,7 +56,7 @@ export const addMusic = (data) => async (dispatch) => {
         dispatch(setUpload(percentage));
       },
     };
-    const res = await axios.post('/api/v1/music/', data, config);
+    const res = await axios.post(`${baseUrl}/api/v1/music/`, data, config);
     dispatch({
       type: ADD_MUSIC,
       payload: res.data.data,
@@ -77,7 +77,7 @@ export const addMusic = (data) => async (dispatch) => {
 
 export const loadArtists = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/v1/artists');
+    const res = await axios.get(`${baseUrl}/api/v1/artists`);
     dispatch({
       type: LOAD_ARTISTS,
       payload: res.data.data,
@@ -100,7 +100,7 @@ export const loadArtists = () => async (dispatch) => {
 
 export const loadArtist = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/v1/artist/${id}`);
+    const res = await axios.get(`${baseUrl}/api/v1/artist/${id}`);
     dispatch({
       type: LOAD_ARTIST,
       payload: res.data.data,
@@ -133,7 +133,7 @@ export const addArtist = (data) => async (dispatch) => {
         dispatch(setUpload(percentage));
       },
     };
-    const res = await axios.post('/api/v1/artist/', data, config);
+    const res = await axios.post(`${baseUrl}/api/v1/artist/`, data, config);
     dispatch({
       type: ADD_ARTIST,
       payload: res.data.data,
@@ -168,7 +168,7 @@ export const cleanMusic = () => (dispatch) => {
 
 export const addLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.post(`/api/v1/music/like/${id}`);
+    const res = await axios.post(`${baseUrl}/api/v1/music/like/${id}`);
     dispatch({
       type: ADD_LIKE,
       payload: { ...res.data.data, id },
@@ -195,7 +195,7 @@ export const addLike = (id) => async (dispatch) => {
 
 export const removeLike = (MusicId, UserId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/v1/music/like/${MusicId}`);
+    await axios.delete(`${baseUrl}/api/v1/music/like/${MusicId}`);
     dispatch({
       type: REMOVE_LIKE,
       payload: { MusicId, UserId },
@@ -223,7 +223,7 @@ export const removeLike = (MusicId, UserId) => async (dispatch) => {
 export const deleteMusic = (MusicId) => async (dispatch) => {
   try {
     dispatch(closePlayer());
-    await axios.delete(`/api/v1/music/${MusicId}`);
+    await axios.delete(`${baseUrl}/api/v1/music/${MusicId}`);
     dispatch({
       type: DELETE_MUSIC,
       payload: { MusicId },
@@ -246,7 +246,7 @@ export const deleteMusic = (MusicId) => async (dispatch) => {
 
 export const deleteArtist = (ArtistId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/v1/artist/${ArtistId}`);
+    await axios.delete(`${baseUrl}/api/v1/artist/${ArtistId}`);
     dispatch({
       type: DELETE_ARTIST,
       payload: { ArtistId },

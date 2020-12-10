@@ -2,6 +2,7 @@ import axios from 'axios';
 import { AUTH_ERROR, LOAD_USER, LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT, ADD_PLAYLIST, REMOVE_PLAYLIST, DELETE_USER, LOAD_USERS } from '../types';
 import { setAlert } from './alert';
 import setAuth from '../utility/setAuthToken';
+import baseUrl from '../utility/baseUrl';
 
 // =====================================================================
 // Load User
@@ -12,7 +13,7 @@ export const loadUser = () => async (dispatch) => {
     setAuth(localStorage.token);
   }
   try {
-    const res = await axios.get('/api/v1/auth/');
+    const res = await axios.get(`${baseUrl}/api/v1/auth/`);
     dispatch({
       type: LOAD_USER,
       payload: res.data.data,
@@ -36,7 +37,7 @@ export const userRegister = ({ name, email, password }) => async (dispatch) => {
   };
   const body = JSON.stringify({ name, email, password });
   try {
-    const res = await axios.post('/api/v1/auth/register', body, config);
+    const res = await axios.post(`${baseUrl}/api/v1/auth/register`, body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -66,7 +67,7 @@ export const userLogin = ({ email, password }) => async (dispatch) => {
   };
   const body = JSON.stringify({ email, password });
   try {
-    const res = await axios.post('/api/v1/auth/login', body, config);
+    const res = await axios.post(`${baseUrl}/api/v1/auth/login`, body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data.data,
@@ -108,7 +109,7 @@ export const userLogout = () => async (dispatch) => {
 
 export const addPlaylist = (id) => async (dispatch) => {
   try {
-    const res = await axios.post(`/api/v1/user/playlist/${id}`);
+    const res = await axios.post(`${baseUrl}/api/v1/user/playlist/${id}`);
     dispatch({
       type: ADD_PLAYLIST,
       payload: res.data.data,
@@ -128,7 +129,7 @@ export const addPlaylist = (id) => async (dispatch) => {
 
 export const removePlaylist = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/v1/user/playlist/${id}`);
+    const res = await axios.delete(`${baseUrl}/api/v1/user/playlist/${id}`);
     dispatch({
       type: REMOVE_PLAYLIST,
       payload: res.data.data,
@@ -148,7 +149,7 @@ export const removePlaylist = (id) => async (dispatch) => {
 
 export const loadUsers = () => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/v1/users`);
+    const res = await axios.get(`${baseUrl}/api/v1/users`);
     dispatch({
       type: LOAD_USERS,
       payload: res.data.data,
@@ -168,7 +169,7 @@ export const loadUsers = () => async (dispatch) => {
 
 export const deleteUser = (UserId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/v1/user/${UserId}`);
+    await axios.delete(`${baseUrl}/api/v1/user/${UserId}`);
     dispatch({
       type: DELETE_USER,
       payload: { UserId },
