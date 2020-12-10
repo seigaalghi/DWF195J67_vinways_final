@@ -42,7 +42,7 @@ export const userRegister = ({ name, email, password }) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data.data,
     });
-    dispatch(setAlert('Registered Successfully', 'success'));
+    dispatch(setAlert(res.data.message, 'success'));
     dispatch(loadUser());
   } catch (error) {
     if (error.response.data.message) {
