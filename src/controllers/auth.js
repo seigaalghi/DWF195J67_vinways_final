@@ -58,7 +58,6 @@ exports.register = async (req, res) => {
         status: 'success',
         message: 'Logged in successfully',
         data: {
-          email,
           token,
         },
       });
@@ -130,7 +129,6 @@ exports.login = async (req, res) => {
         status: 'success',
         message: 'Logged in successfully',
         data: {
-          email,
           token,
         },
       });
@@ -182,6 +180,11 @@ exports.loadUser = async (req, res) => {
           as: 'transactions',
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
+      ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'playlists' }, 'createdAt', 'DESC'],
+        [{ model: Transaction, as: 'transactions' }, 'createdAt', 'DESC'],
       ],
     });
 

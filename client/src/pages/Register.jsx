@@ -36,15 +36,7 @@ const Register = ({ auth, setAlert, userRegister }) => {
       <form onSubmit={submitHandler}>
         <input type='text' value={formData.name} required onChange={changeHandler} name='name' className='input' placeholder='Full Name' />
         <input type='text' value={formData.email} required onChange={changeHandler} name='email' className='input' placeholder='Email' />
-        <input
-          type='password'
-          value={formData.password}
-          required
-          onChange={changeHandler}
-          name='password'
-          className='input'
-          placeholder='Passoword'
-        />
+        <input type='password' value={formData.password} required onChange={changeHandler} name='password' className='input' placeholder='Password' />
         <input
           type='password'
           value={formData.password2}
@@ -52,7 +44,7 @@ const Register = ({ auth, setAlert, userRegister }) => {
           onChange={changeHandler}
           name='password2'
           className='input'
-          placeholder='Confirm Passoword'
+          placeholder='Confirm Password'
         />
         <input type='submit' value='Register' className='btn btn-big' />
       </form>

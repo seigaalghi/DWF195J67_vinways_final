@@ -24,6 +24,11 @@ exports.getUsers = async (req, res) => {
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'playlists' }, 'createdAt', 'DESC'],
+        [{ model: Transaction, as: 'transactions' }, 'createdAt', 'DESC'],
+      ],
     });
     res.status(200).json({
       status: 'success',
@@ -67,6 +72,11 @@ exports.getUser = async (req, res) => {
           as: 'transactions',
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
+      ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'playlists' }, 'createdAt', 'DESC'],
+        [{ model: Transaction, as: 'transactions' }, 'createdAt', 'DESC'],
       ],
     });
 
