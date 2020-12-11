@@ -10,7 +10,6 @@ export const uploadPayment = (data) => async (dispatch) => {
       },
       onUploadProgress: (progressEvent) => {
         const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        console.log(percentage);
         dispatch(setUpload(percentage));
       },
     };

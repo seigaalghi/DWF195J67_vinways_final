@@ -9,7 +9,15 @@ exports.getArtists = async (req, res) => {
   try {
     const artists = await Artist.findAll({
       attributes: { exclude: ['createdAt', 'updatedAt'] },
-      include: { model: Music, as: 'musics', attributes: { exclude: ['createdAt', 'updatedAt'] } },
+      include: {
+        model: Music,
+        as: 'musics',
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+      },
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'musics' }, 'createdAt', 'DESC'],
+      ],
     });
     res.status(200).json({
       status: 'success',
@@ -43,11 +51,15 @@ exports.getArtist = async (req, res) => {
         model: Music,
         include: [
           { model: User, as: 'likes', attributes: ['id', 'name'], through: { attributes: [] } },
-          { model: Artist, as: 'artist', attributes: { exclude: ['createdAt, updatedAt'] } },
+          { model: Artist, as: 'artist', attributes: ['id', 'name', 'img', 'age', 'type', 'start'] },
         ],
         as: 'musics',
         attributes: { exclude: ['createdAt', 'updatedAt'] },
       },
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'musics' }, 'createdAt', 'DESC'],
+      ],
     });
 
     if (!artist) {
@@ -120,6 +132,10 @@ exports.postArtist = async (req, res) => {
       where: { id: artist.id },
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: { model: Music, as: 'musics', attributes: { exclude: ['createdAt', 'updatedAt'] } },
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'musics' }, 'createdAt', 'DESC'],
+      ],
     });
 
     res.status(200).json({
@@ -192,6 +208,10 @@ exports.putArtist = async (req, res) => {
       where: { id: id },
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       include: { model: Music, as: 'musics', attributes: { exclude: ['createdAt', 'updatedAt'] } },
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: Music, as: 'musics' }, 'createdAt', 'DESC'],
+      ],
     });
 
     res.status(200).json({

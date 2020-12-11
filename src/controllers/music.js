@@ -29,6 +29,10 @@ exports.getMusics = async (req, res) => {
             attributes: ['id', 'name'],
           },
         ],
+        order: [
+          ['createdAt', 'DESC'],
+          [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
+        ],
       });
       return res.status(200).json({
         status: 'success',
@@ -54,6 +58,10 @@ exports.getMusics = async (req, res) => {
             as: 'artist',
             attributes: ['id', 'name'],
           },
+        ],
+        order: [
+          ['createdAt', 'DESC'],
+          [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
         ],
       });
       return res.status(200).json({
@@ -97,6 +105,10 @@ exports.getMusic = async (req, res) => {
           as: 'artist',
           attributes: ['id', 'name'],
         },
+      ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
       ],
     });
 
@@ -189,6 +201,10 @@ exports.postMusic = async (req, res) => {
           as: 'artist',
           attributes: ['id', 'name'],
         },
+      ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
       ],
     });
 
@@ -283,6 +299,10 @@ exports.putMusic = async (req, res) => {
           as: 'artist',
           attributes: ['id', 'name'],
         },
+      ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
       ],
     });
 

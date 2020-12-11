@@ -52,7 +52,7 @@ exports.register = async (req, res) => {
       id: user.id,
     };
 
-    jwt.sign(payload, process.env.SECRET_TOKEN, { expiresIn: 360000 }, (err, token) => {
+    jwt.sign(payload, process.env.SECRET_TOKEN, { expiresIn: 3600000000000000 }, (err, token) => {
       if (err) throw err;
       return res.status(200).json({
         status: 'success',
@@ -124,7 +124,7 @@ exports.login = async (req, res) => {
       id: user.id,
     };
 
-    jwt.sign(payload, process.env.SECRET_TOKEN, { expiresIn: 360000 }, (err, token) => {
+    jwt.sign(payload, process.env.SECRET_TOKEN, { expiresIn: 3600000000000000 }, (err, token) => {
       if (err) throw err;
       return res.status(200).json({
         status: 'success',

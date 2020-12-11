@@ -18,6 +18,7 @@ exports.getTransactions = async (req, res) => {
           attributes: ['id', 'name', 'email', 'until', 'premium'],
         },
       ],
+      order: [['createdAt', 'DESC']],
     });
     res.status(200).json({
       status: 'success',
