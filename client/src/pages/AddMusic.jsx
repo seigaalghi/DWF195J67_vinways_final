@@ -51,6 +51,15 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
     for (let i = 1980; i <= new Date().getFullYear(); i++) {
       years.push({ key: i, value: i });
     }
+    years.sort((a, b) => {
+      if (a.value > b.value) {
+        return -1;
+      }
+      if (a.value < b.value) {
+        return 1;
+      }
+      return 0;
+    });
     return years;
   };
 
@@ -59,6 +68,15 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
     if (artists) {
       artists.map((artist) => artistLists.push({ key: artist.name, value: artist.id }));
     }
+    artistLists.sort((a, b) => {
+      if (a.key < b.key) {
+        return -1;
+      }
+      if (a.key > b.key) {
+        return 1;
+      }
+      return 0;
+    });
     return artistLists;
   };
 
