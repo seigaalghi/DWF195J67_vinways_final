@@ -88,12 +88,13 @@ body {
   padding: 10px;
   box-sizing: border-box;
   font-size: 20px;
-  color: #03f387;
+  color: #d2d2d2;
+  border: 2px solid #d2d2d2;
 }
 
 .input::placeholder {
-  color: #03f387;
-  text-align: center;
+  color: #d2d2d2;
+  text-align: left;
 }
 
 h1 {
@@ -102,7 +103,7 @@ h1 {
   font-family: 'Abhaya Libre', serif;
 }
 
-.input-file {
+#input-file {
   display: none;
 }
 
@@ -115,6 +116,8 @@ h1 {
   text-overflow: ellipsis;
   width: 350px;
   white-space: nowrap;
+  text-align: left;
+  background-color: #00031f;
 }
 
 .color-primary {
@@ -143,6 +146,11 @@ tr:nth-child(even) {
 
 th {
   color: #03f387;
+}
+
+select.input {
+  margin: 10px auto;
+  width: 100%;
 }
 
 /* --------------------------------------- */
@@ -478,7 +486,6 @@ div.pagination select {
 
 .payment input {
   margin: 10px auto;
-  text-align: center;
 }
 
 /* --------------------------------------- */
@@ -587,16 +594,46 @@ div.transaction table button {
 /* --------------------------------------- */
 
 div.add-music-container {
-  max-width: 90%;
+  max-width: 80%;
   margin: 90px auto 0px auto;
 }
 
-div.add-music-container form {
-  display: flex;
-  flex-direction: column;
+div.form-music {
+  display: grid;
+  grid-template-areas: 'title title img' 'year year year' 'artist artist artist' 'audio none1 none2' 'none3 submit none4';
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+#music-title {
+  grid-area: title;
+}
+#music-img {
+  grid-area: img;
+}
+#music-year {
+  grid-area: year;
+}
+#music-artist {
+  grid-area: artist;
+}
+#music-audio {
+  grid-area: audio;
+}
+#music-submit {
+  grid-area: submit;
 }
 
 div.add-music-container form input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+div.add-music-container form select {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -609,17 +646,7 @@ div.add-music-container form label {
   flex-direction: column;
   width: 100%;
   margin: 10px auto;
-  text-align: center;
-}
-
-div.add-music-container form select {
-  margin: 10px auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align-last: center;
-  color: #03f387;
+  text-align: left;
 }
 
 div.add-music-container form select option {
@@ -640,6 +667,79 @@ div.preview img {
   margin: 10px auto;
   max-width: 200px;
   max-height: 200px;
+}
+
+/* --------------------------------------- */
+/* Add Artist */
+/* --------------------------------------- */
+
+div.add-artist-container {
+  max-width: 80%;
+  margin: 90px auto 0px auto;
+}
+
+div.form-artist {
+  display: grid;
+  grid-template-areas:
+    'name name img'
+    'age age age'
+    'category category category'
+    'start start start'
+    'none submit free';
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+#artist-name {
+  grid-area: name;
+}
+
+#artist-image {
+  grid-area: img;
+}
+
+#artist-age {
+  grid-area: age;
+}
+
+#artist-category {
+  grid-area: category;
+}
+
+#artist-start {
+  grid-area: start;
+}
+
+#artist-submit {
+  grid-area: submit;
+}
+
+div.add-artist-container form input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px auto;
+  text-align: left;
+}
+
+div.add-artist-container form select {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+div.add-artist-container form label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px auto;
+  text-align: left;
+}
+
+div.add-artist-container form select option {
+  background-color: #00031f;
 }
 
 /* --------------------------------------- */

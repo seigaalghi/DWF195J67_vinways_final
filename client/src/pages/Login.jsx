@@ -1,23 +1,24 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import Background from '../components/auth/Background';
 import { connect } from 'react-redux';
 import { userLogin } from '../redux/action/auth';
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import FormControl from '../components/form/FormControl';
 
 const Login = ({ auth, userLogin }) => {
-  const [formData, setFormData] = useState({
+  const initialValues = {
     email: '',
     password: '',
+  };
+  const onSubmit = (values) => {
+    userLogin(values);
+  };
+  const validationSchema = Yup.object({
+    email: Yup.string().email('Invalid email format').required('Email is required'),
+    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   });
-
-  const changeHandler = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    userLogin(formData);
-  };
 
   const link = {
     name: 'Register',
@@ -26,13 +27,15 @@ const Login = ({ auth, userLogin }) => {
   };
 
   const form = (
-    <Fragment>
-      <form onSubmit={submitHandler}>
-        <input type='text' value={formData.email} required onChange={changeHandler} name='email' className='input' placeholder='Email' />
-        <input type='password' value={formData.password} required onChange={changeHandler} name='password' className='input' placeholder='Password' />
-        <input type='submit' value='Login' className='btn btn-big' />
-      </form>
-    </Fragment>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+      {(formik) => (
+        <Form>
+          <FormControl control='input' label='Email' type='text' name='email' />
+          <FormControl control='input' label='Password' type='password' name='password' />
+          <input type='submit' value='Login' className='btn btn-big' />
+        </Form>
+      )}
+    </Formik>
   );
 
   if (auth.isAuthenticated) {

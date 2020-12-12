@@ -1,119 +1,159 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addMusic, loadArtists } from '../redux/action/music';
+import { Form, Formik, Field, ErrorMessage } from 'formik';
+import FormControl from '../components/form/FormControl';
+import * as Yup from 'yup';
+import ErrorText from '../components/form/ErrorText';
 
 const AddMusic = ({ loadArtists, artists, addMusic }) => {
   const [image, setImage] = useState('');
-  const [img, setImg] = useState(null);
-  const [audio, setAudio] = useState(null);
-  const [formData, setForMData] = useState({
+  const initialValues = {
     title: '',
     img: '',
     year: '',
     artistId: '',
     audio: '',
-  });
+  };
 
   useEffect(() => {
     loadArtists();
   }, [loadArtists]);
 
-  const changeHandler = (e) => {
-    setForMData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const imageHandler = (e) => {
-    if (e.target.files) {
-      const fileName = String(e.target.files[0].name);
-      setForMData({ ...formData, [e.target.name]: fileName });
-      setImg(e.target.files[0]);
-      if (e.target.name === 'img') {
-        setImage(URL.createObjectURL(e.target.files[0]));
-      }
-    }
-  };
-
-  const audioHandler = (e) => {
-    if (e.target.files) {
-      const fileName = String(e.target.files[0].name);
-      setForMData({ ...formData, [e.target.name]: fileName });
-      setAudio(e.target.files[0]);
-    }
-  };
-
-  const clearForm = () => {
-    setForMData({
-      title: '',
-      img: '',
-      year: '',
-      artistId: '',
-      audio: '',
-    });
-    setImg(null);
-    setAudio(null);
-    setImage('');
-  };
-
-  const { title, year, artistId } = formData;
-
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const onSubmit = (values) => {
     const data = new FormData();
-    data.append('title', title);
-    data.append('year', year);
-    data.append('artistId', artistId);
-    data.append('img', img);
-    data.append('audio', audio);
+    data.append('title', values.title);
+    data.append('year', values.year);
+    data.append('artistId', values.artistId);
+    data.append('img', values.img);
+    data.append('audio', values.audio);
     addMusic(data);
-    clearForm();
   };
+
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Artist name is required'),
+    img: Yup.mixed()
+      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null))
+      .required('Artist image is required'),
+    year: Yup.string()
+      .matches(/^[0-9]*$/, 'Start at must be numbers only')
+      .min(4, 'Start at must be 4 characters')
+      .max(4, 'Start at must be 4 characters')
+      .required('Start at is required'),
+    artistId: Yup.string().required('Music artist is required'),
+    audio: Yup.mixed()
+      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 15 : null))
+      .required('Artist image is required'),
+  });
+
+  const year = () => {
+    let years = [];
+    for (let i = 1980; i <= new Date().getFullYear(); i++) {
+      years.push({ key: i, value: i });
+    }
+    return years;
+  };
+
+  const artistList = () => {
+    let artistLists = [];
+    if (artists) {
+      artists.map((artist) => artistLists.push({ key: artist.name, value: artist.id }));
+    }
+    return artistLists;
+  };
+
   return (
     <Fragment>
       <div className='add-music-container'>
         <h1>Add Music</h1>
-        <form onSubmit={submitHandler}>
-          <input type='text' className='input' name='title' onChange={changeHandler} value={formData.title} required placeholder='Song Title' />
-
-          <label className='input label-input-file'>
-            {formData.img ? (
-              formData.img
-            ) : (
-              <span>
-                Album Cover <i className='fas fa-paperclip'></i>
-              </span>
-            )}
-
-            <input type='file' className='input-file' accept='image/*' onChange={imageHandler} name='img' required />
-          </label>
-
-          <input type='text' className='input' name='year' onChange={changeHandler} value={formData.year} required placeholder='Song Released Year' />
-
-          <select className='input' name='artistId' onChange={changeHandler} value={formData.artist} required placeholder='Song Artist'>
-            <option>Select Artist</option>
-            {artists ? (
-              artists.map((artist) => (
-                <option value={`${artist.id}`} key={artist.id}>
-                  {artist.name}
-                </option>
-              ))
-            ) : (
-              <option>Loading</option>
-            )}
-          </select>
-
-          <label className='input label-input-file'>
-            {formData.audio ? (
-              formData.audio
-            ) : (
-              <span>
-                Audio <i className='fas fa-paperclip'></i>
-              </span>
-            )}
-
-            <input type='file' className='input-file' accept='audio/*' onChange={audioHandler} name='audio' required />
-          </label>
-          <input type='submit' className='btn btn-big' />
-        </form>
+        <Formik onSubmit={onSubmit} initialValues={initialValues} validationSchema={validationSchema}>
+          {(formik) => {
+            return (
+              <Form>
+                <div className='form-music'>
+                  <div id='music-title'>
+                    <FormControl control='input' type='text' name='title' label='Title' />
+                  </div>
+                  <div className='form-file' id='music-img'>
+                    <label className='input label-input-file'>
+                      {formik.values.img ? (
+                        formik.values.img.name
+                      ) : (
+                        <span>
+                          Music Image <i className='fas fa-paperclip'></i>
+                        </span>
+                      )}
+                      <Field>
+                        {(props) => {
+                          const { form } = props;
+                          return (
+                            <input
+                              type='file'
+                              name='img'
+                              id='input-file'
+                              className='input-file'
+                              accept='image/*'
+                              onChange={(e) => {
+                                if (e.target.files[0]) {
+                                  form.setFieldValue(e.target.name, e.target.files[0]);
+                                  setImage(URL.createObjectURL(e.target.files[0]));
+                                } else {
+                                  form.setFieldValue(e.target.name, '');
+                                  setImage('');
+                                }
+                              }}
+                            />
+                          );
+                        }}
+                      </Field>
+                    </label>
+                    <ErrorMessage name='img' component={ErrorText} />
+                  </div>
+                  <div id='music-year'>
+                    <FormControl control='select' options={year()} name='year' label='Released Year' id='music-year' />
+                  </div>
+                  <div id='music-artist'>
+                    <FormControl control='select' options={artistList()} name='artistId' label='Artist' id='music-artist' />
+                  </div>
+                  <div className='form-file' id='music-audio'>
+                    <label className='input label-input-file'>
+                      {formik.values.audio ? (
+                        formik.values.audio.name
+                      ) : (
+                        <span>
+                          Music Audio <i className='fas fa-paperclip'></i>
+                        </span>
+                      )}
+                      <Field>
+                        {(props) => {
+                          const { form } = props;
+                          return (
+                            <input
+                              type='file'
+                              name='audio'
+                              id='input-file'
+                              className='input-file'
+                              accept='audio/*'
+                              onChange={(e) => {
+                                if (e.target.files[0]) {
+                                  form.setFieldValue(e.target.name, e.target.files[0]);
+                                } else {
+                                  form.setFieldValue(e.target.name, '');
+                                }
+                              }}
+                            />
+                          );
+                        }}
+                      </Field>
+                    </label>
+                    <ErrorMessage name='audio' component={ErrorText} />
+                  </div>
+                  <input type='submit' className='btn btn-big' id='music-submit' />
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
         <div className='preview'>
           {image ? (
             <Fragment>

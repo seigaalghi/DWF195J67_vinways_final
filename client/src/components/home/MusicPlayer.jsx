@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import H5AudioPlayer from 'react-h5-audio-player';
 import { connect } from 'react-redux';
 import { closePlayer, setPlayer } from '../../redux/action/player';
-import { addLike, removeLike } from '../../redux/action/music';
+import { addLike, loadMusics, removeLike } from '../../redux/action/music';
 import { addPlaylist, removePlaylist } from '../../redux/action/auth';
 import Loading from '../Loading';
 
@@ -16,11 +16,16 @@ const MusicPlayer = ({
   removeLike,
   addPlaylist,
   removePlaylist,
+  loadMusics,
 }) => {
   const [musicPlayer, setMusicPlayer] = useState({});
 
   useEffect(() => {
-    if (music) {
+    loadMusics();
+  }, [loadMusics]);
+
+  useEffect(() => {
+    if (music && musics) {
       const player = async () => {
         const res = await musics.find((msc) => msc.id === music.id);
         setMusicPlayer(res);
@@ -75,6 +80,7 @@ const MusicPlayer = ({
         onClickPrevious={prevHandler}
         showSkipControls={true}
         onEnded={nextHandler}
+        volume={0.5}
       />
       <div className='action'>
         {!musicPlayer.likes.find((like) => like.id === user.id) ? (
@@ -107,4 +113,4 @@ const mapStateToProps = (state) => ({
   musics: state.music.musics,
 });
 
-export default connect(mapStateToProps, { closePlayer, setPlayer, addLike, removeLike, addPlaylist, removePlaylist })(MusicPlayer);
+export default connect(mapStateToProps, { closePlayer, setPlayer, addLike, removeLike, addPlaylist, removePlaylist, loadMusics })(MusicPlayer);
