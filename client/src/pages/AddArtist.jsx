@@ -29,8 +29,8 @@ const AddArtist = ({ addArtist }) => {
 
   const validationSchema = Yup.object({
     img: Yup.mixed()
-      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null))
-      .required('Artist image is required'),
+      .required('Artist image is required')
+      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null)),
     name: Yup.string().required('Artist name is required'),
     age: Yup.string()
       .matches(/^[0-9]*$/, 'Age must be numbers only')

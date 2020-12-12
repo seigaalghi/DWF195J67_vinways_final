@@ -33,8 +33,8 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
   const validationSchema = Yup.object({
     title: Yup.string().required('Artist name is required'),
     img: Yup.mixed()
-      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null))
-      .required('Artist image is required'),
+      .required('Artist image is required')
+      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null)),
     year: Yup.string()
       .matches(/^[0-9]*$/, 'Start at must be numbers only')
       .min(4, 'Start at must be 4 characters')
@@ -42,8 +42,8 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
       .required('Start at is required'),
     artistId: Yup.string().required('Music artist is required'),
     audio: Yup.mixed()
-      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 15 : null))
-      .required('Artist image is required'),
+      .required('Artist image is required')
+      .test('fileSize', 'File Size is too large (Max 15 MB)', (value) => (value ? value.size <= 1024 * 1024 * 15 : null)),
   });
 
   const year = () => {
