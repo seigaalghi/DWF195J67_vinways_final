@@ -811,7 +811,7 @@ div.modal div i {
 div.playlist-container {
   top: 90px;
   position: relative;
-  width: 100%;
+  width: 90%;
   margin: 0px auto;
   display: grid;
   grid-template-areas: 'banner' 'content';
@@ -825,10 +825,11 @@ div.playlist-container h1 {
 div.artist {
   display: grid;
   grid-template-areas: 'header header' 'img desc';
-  grid-template-rows: 1fr 4fr;
-  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 340px;
+  grid-template-columns: 50% 50%;
   width: 80%;
-  margin: 0px auto;
+  margin: 20px auto;
+  overflow: hidden;
 }
 
 div.artist h1 {
@@ -843,21 +844,30 @@ div.artist div {
 }
 
 div.artist div table {
-  width: 300px;
-  height: 60%;
+  height: 100%;
+  width: 100%;
   font-size: 20px;
   margin: 0;
   text-align: left;
   table-layout: fixed;
+  box-sizing: border-box;
+}
+
+div.artist div table th,
+div.artist div table td {
+  padding-left: 20px;
 }
 
 div.artist div table th {
-  padding: 3px;
+  height: 80px;
+  font-size: 40px;
+  background-color: #191c35;
 }
 
 div.artist img {
   grid-area: img;
-  height: 300px;
+  height: 100%;
+  width: 100%;
   margin-left: 00px;
   margin-bottom: 30px;
 }
@@ -1042,4 +1052,22 @@ div.modal-container div.transaction-modal img {
   display: block;
   max-width: 700px;
   max-height: 700px;
+}
+
+/* ===================================================================================================== */
+
+@media screen and (max-width: 1200px) {
+  div.content-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 1024px) {
+  div.content-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 768px) {
+  div.content-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }

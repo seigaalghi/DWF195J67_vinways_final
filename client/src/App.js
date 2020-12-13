@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import { useEffect } from 'react';
 import PopUp from './components/PopUp';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -13,9 +14,6 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 import setAuth from './redux/utility/setAuthToken';
 import { loadUser } from './redux/action/auth';
-import { useEffect } from 'react';
-import Formik from './components/Formik';
-import FormikTwo from './components/FormikTwo';
 
 if (localStorage.token) {
   setAuth(localStorage.token);
@@ -34,8 +32,6 @@ function App() {
           <UploadProgres />
           <Switch>
             <Route path='/login' exact component={Login} />
-            <Route path='/formik' exact component={Formik} />
-            <Route path='/formiktwo' exact component={FormikTwo} />
             <Route path='/register' exact component={Register} />
             <PrivateRoute
               exact

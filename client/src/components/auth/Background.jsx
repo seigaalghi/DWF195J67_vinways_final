@@ -14,7 +14,7 @@ const Background = ({ form, link }) => {
         <h1 className='everything'>
           <img src={kaset} className='kaset' alt='logo' /> Everything
         </h1>
-        <p>pay and access millions of songs</p>
+        <p>Pay and access millions of songs</p>
         <Link to={link.to} className='btn btn-small'>
           {link.name}
         </Link>
