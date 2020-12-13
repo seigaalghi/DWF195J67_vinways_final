@@ -56,7 +56,7 @@ exports.register = async (req, res) => {
       if (err) throw err;
       return res.status(200).json({
         status: 'success',
-        message: 'Logged in successfully',
+        message: 'Registered in successfully',
         data: {
           token,
         },
