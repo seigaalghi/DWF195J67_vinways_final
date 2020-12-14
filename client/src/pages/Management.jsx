@@ -73,7 +73,7 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
     });
   };
 
-  return auth.loading || music.loading || !auth || !music ? (
+  return auth.loading || music.loading || !auth.users || !music.musics ? (
     <Loading />
   ) : (
     <div className='management'>
