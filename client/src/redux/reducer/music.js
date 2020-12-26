@@ -17,6 +17,7 @@ const initialState = {
   artists: null,
   artist: null,
   music: null,
+  count: null,
 };
 
 const musicReducer = (state = initialState, action) => {
@@ -25,7 +26,8 @@ const musicReducer = (state = initialState, action) => {
     case LOAD_MUSICS:
       return {
         ...state,
-        ...payload,
+        musics: payload.musics.rows,
+        count: payload.musics.count,
         loading: false,
       };
     case ADD_MUSIC:
@@ -68,7 +70,9 @@ const musicReducer = (state = initialState, action) => {
       return {
         ...state,
         musics: state.musics.map((music) =>
-          music.id === payload.MusicId ? { ...music, likes: music.likes.filter((like) => like.id !== payload.UserId) } : music
+          music.id === payload.MusicId
+            ? { ...music, likes: music.likes.filter((like) => like.id !== payload.UserId) }
+            : music
         ),
       };
     case DELETE_MUSIC:

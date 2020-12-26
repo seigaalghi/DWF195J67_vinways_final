@@ -5,7 +5,12 @@ import { cleanMusic, loadArtists, loadMusics } from '../redux/action/music';
 import { connect } from 'react-redux';
 import Loading from '../components/universal/Loading';
 
-const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, musics } }) => {
+const Home = ({
+  loadMusics,
+  loadArtists,
+  cleanMusic,
+  music: { loading, artists, musics, count },
+}) => {
   const [page, setPage] = useState(1);
   useEffect(() => {
     loadMusics(page * 12);
@@ -39,9 +44,9 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
         <i className='fa fa-search'></i>
       </div>
       <Contents
-        musics={search.length > 0 ? search : musics.rows}
-        queue={search.length > 0 ? search : musics.rows}
-        count={musics.count}
+        musics={search.length > 0 ? search : musics}
+        queue={search.length > 0 ? search : musics}
+        count={count}
         next={() => setPage((prev) => prev + 1)}
       />
     </Fragment>

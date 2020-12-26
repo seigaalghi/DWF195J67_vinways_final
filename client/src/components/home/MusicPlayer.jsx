@@ -118,7 +118,7 @@ const MusicPlayer = ({
 const mapStateToProps = (state) => ({
   player: state.player,
   auth: state.auth,
-  musics: state.music.musics.rows,
+  musics: state.music.musics,
 });
 
 export default connect(mapStateToProps, {
