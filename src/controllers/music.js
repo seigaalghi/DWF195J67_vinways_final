@@ -7,13 +7,16 @@ const Joi = require('joi');
 
 exports.getMusics = async (req, res) => {
   const { id } = req.user;
+  const limit = parseInt(req.params.limit);
   try {
     const user = await User.findOne({ where: { id } });
     const until = new Date(user.until).getTime();
     const now = Date.now();
 
     if (until < now) {
-      const musics = await Music.findAll({
+      const musics = await Music.findAndCountAll({
+        limit: limit,
+        distinct: true,
         attributes: {
           exclude: ['updatedAt', 'ArtistId', 'audio'],
         },
@@ -43,7 +46,9 @@ exports.getMusics = async (req, res) => {
         },
       });
     } else {
-      const musics = await Music.findAll({
+      const musics = await Music.findAndCountAll({
+        limit: limit,
+        distinct: true,
         attributes: {
           exclude: ['updatedAt', 'ArtistId'],
         },

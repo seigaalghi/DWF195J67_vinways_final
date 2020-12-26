@@ -6,13 +6,17 @@ import { connect } from 'react-redux';
 import Loading from '../components/universal/Loading';
 
 const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, musics } }) => {
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    loadMusics();
-    loadArtists();
+    loadMusics(page * 12);
     return () => {
       cleanMusic();
     };
-  }, [loadMusics, loadArtists, cleanMusic]);
+  }, [loadMusics, cleanMusic, page]);
+
+  useEffect(() => {
+    loadArtists();
+  }, [loadArtists]);
 
   const [search, setSearch] = useState([]);
 
@@ -35,8 +39,10 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
         <i className='fa fa-search'></i>
       </div>
       <Contents
-        musics={search.length > 0 ? search : musics}
-        queue={search.length > 0 ? search : musics}
+        musics={search.length > 0 ? search : musics.rows}
+        queue={search.length > 0 ? search : musics.rows}
+        count={musics.count}
+        next={() => setPage((prev) => prev + 1)}
       />
     </Fragment>
   );

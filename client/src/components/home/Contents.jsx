@@ -5,6 +5,7 @@ import { setPlayer, setQueue } from '../../redux/action/player';
 import { addLike, removeLike } from '../../redux/action/music';
 import { addPlaylist, removePlaylist } from '../../redux/action/auth';
 import Loading from '../universal/Loading';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Contents = ({
   musics,
@@ -17,6 +18,8 @@ const Contents = ({
   removeLike,
   addPlaylist,
   removePlaylist,
+  count,
+  next,
 }) => {
   const handlerMusic = (music) => {
     if (auth.user.premium) {
@@ -48,43 +51,50 @@ const Contents = ({
     <Loading />
   ) : (
     <div>
-      <div className='content-container'>
-        {musics.map((music, index) => (
-          <div className='contents' key={index} onClick={() => handlerMusic(music)}>
-            <img src={music.img} alt={music.title} />
-            <div className='content'>
-              <div className='song-title'>{music.title}</div>
-              <div className='song-year'>{music.year}</div>
-              <div className='song-artist'>{music.artist.name}</div>
-              <div className='content-action'>
-                {!music.likes.find((like) => like.id === auth.user.id) ? (
-                  <span>
-                    <span className='like' onClick={(e) => likeHandler(e, music.id)}>
-                      {music.likes.length > 0 ? <span>{music.likes.length}</span> : null}
-                    </span>{' '}
-                    <i className='far fa-heart' onClick={(e) => likeHandler(e, music.id)}></i>
-                  </span>
-                ) : (
-                  <span>
-                    <span className='like' onClick={(e) => dislikeHandler(e, music.id)}>
-                      {music.likes.length > 0 ? <span>{music.likes.length}</span> : null}
-                    </span>{' '}
+      <div>
+        <InfiniteScroll
+          className='content-container'
+          dataLength={musics.length}
+          next={() => setTimeout(() => next(), 1500)}
+          hasMore={musics.length < count}
+          loader={<h3 id='load-more'>Loading...</h3>}>
+          {musics.map((music, index) => (
+            <div className='contents' key={index} onClick={() => handlerMusic(music)}>
+              <img src={music.img} alt={music.title} />
+              <div className='content'>
+                <div className='song-title'>{music.title}</div>
+                <div className='song-year'>{music.year}</div>
+                <div className='song-artist'>{music.artist.name}</div>
+                <div className='content-action'>
+                  {!music.likes.find((like) => like.id === auth.user.id) ? (
+                    <span>
+                      <span className='like' onClick={(e) => likeHandler(e, music.id)}>
+                        {music.likes.length > 0 ? <span>{music.likes.length}</span> : null}
+                      </span>{' '}
+                      <i className='far fa-heart' onClick={(e) => likeHandler(e, music.id)}></i>
+                    </span>
+                  ) : (
+                    <span>
+                      <span className='like' onClick={(e) => dislikeHandler(e, music.id)}>
+                        {music.likes.length > 0 ? <span>{music.likes.length}</span> : null}
+                      </span>{' '}
+                      <i
+                        className='fas fa-heart color-danger'
+                        onClick={(e) => dislikeHandler(e, music.id)}></i>
+                    </span>
+                  )}
+                  {!auth.user.playlists.find((playlist) => playlist.id === music.id) ? (
+                    <i className='fas fa-plus' onClick={(e) => addPlaylistHandler(e, music.id)}></i>
+                  ) : (
                     <i
-                      className='fas fa-heart color-danger'
-                      onClick={(e) => dislikeHandler(e, music.id)}></i>
-                  </span>
-                )}
-                {!auth.user.playlists.find((playlist) => playlist.id === music.id) ? (
-                  <i className='fas fa-plus' onClick={(e) => addPlaylistHandler(e, music.id)}></i>
-                ) : (
-                  <i
-                    className='fas fa-plus color-primary'
-                    onClick={(e) => removePlaylistHandler(e, music.id)}></i>
-                )}
+                      className='fas fa-plus color-primary'
+                      onClick={(e) => removePlaylistHandler(e, music.id)}></i>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </InfiniteScroll>
       </div>
     </div>
   );

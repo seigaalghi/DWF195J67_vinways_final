@@ -18,12 +18,13 @@ import { setAlert, setUpload } from './alert';
 import { closePlayer } from './player';
 
 // =========================================================================================
-// LOAD MUSIC
+// LOAD MUSICS
 // =========================================================================================
 
-export const loadMusics = () => async (dispatch) => {
+export const loadMusics = (limit) => async (dispatch) => {
+  console.log(limit);
   try {
-    const res = await axios.get('/api/v1/musics');
+    const res = await axios.get(`/api/v1/musics/${limit}`);
     dispatch({
       type: LOAD_MUSICS,
       payload: res.data.data,
