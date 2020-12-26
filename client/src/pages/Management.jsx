@@ -36,7 +36,7 @@ const Management = ({
   useEffect(() => {
     loadUsers();
     loadArtists();
-    loadMusics();
+    loadMusics(9999);
   }, [loadUsers, loadArtists, loadMusics]);
 
   const deleteArtistHandler = (id) => {

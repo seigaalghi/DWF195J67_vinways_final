@@ -21,7 +21,7 @@ const MusicPlayer = ({
   const [musicPlayer, setMusicPlayer] = useState({});
 
   useEffect(() => {
-    loadMusics();
+    loadMusics(9999);
   }, [loadMusics]);
 
   useEffect(() => {
