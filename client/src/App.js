@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { useEffect } from 'react';
-import PopUp from './components/PopUp';
+import PopUp from './components/universal/PopUp';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Registered from './pages/Registered';
 import NotFound from './pages/NotFound';
-import PrivateRoute from './components/PrivateRoute';
-import UploadProgres from './components/UploadProgres';
+import PrivateRoute from './components/universal/PrivateRoute';
+import UploadProgres from './components/universal/UploadProgres';
 
 // REDUX
 import store from './redux/store';
@@ -35,7 +35,16 @@ function App() {
             <Route path='/register' exact component={Register} />
             <PrivateRoute
               exact
-              path={['/', '/artist/:artistId', '/playlist/', '/payment', '/add-artist', '/add-music', '/list-trans', '/management']}
+              path={[
+                '/',
+                '/artist/:artistId',
+                '/playlist/',
+                '/payment',
+                '/add-artist',
+                '/add-music',
+                '/list-trans',
+                '/management',
+              ]}
               component={Registered}
             />
             <Route component={NotFound} />

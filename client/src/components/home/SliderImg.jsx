@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-import Loading from '../Loading';
+import Loading from '../universal/Loading';
 
 const SliderImg = ({ artists }) => {
   const settings = {

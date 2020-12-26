@@ -3,7 +3,7 @@ import Contents from '../components/home/Contents';
 import SliderImg from '../components/home/SliderImg';
 import { cleanMusic, loadArtists, loadMusics } from '../redux/action/music';
 import { connect } from 'react-redux';
-import Loading from '../components/Loading';
+import Loading from '../components/universal/Loading';
 
 const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, musics } }) => {
   useEffect(() => {
@@ -18,7 +18,9 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
 
   const searchhandler = (e) => {
     const list = musics
-      .map((music) => (music.title.toLowerCase().includes(e.target.value.toLowerCase()) ? music : null))
+      .map((music) =>
+        music.title.toLowerCase().includes(e.target.value.toLowerCase()) ? music : null
+      )
       .filter((music) => music !== null);
     setSearch(list);
   };
@@ -32,7 +34,10 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
         <input type='text' placeholder={`Search..`} onChange={searchhandler} />
         <i className='fa fa-search'></i>
       </div>
-      <Contents musics={search.length > 0 ? search : musics} queue={search.length > 0 ? search : musics} />
+      <Contents
+        musics={search.length > 0 ? search : musics}
+        queue={search.length > 0 ? search : musics}
+      />
     </Fragment>
   );
 };

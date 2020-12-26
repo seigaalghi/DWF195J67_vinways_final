@@ -34,7 +34,9 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
     title: Yup.string().required('Artist name is required'),
     img: Yup.mixed()
       .required('Artist image is required')
-      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null)),
+      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) =>
+        value ? value.size <= 1024 * 1024 * 1 : null
+      ),
     year: Yup.string()
       .matches(/^[0-9]*$/, 'Start at must be numbers only')
       .min(4, 'Start at must be 4 characters')
@@ -43,7 +45,9 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
     artistId: Yup.string().required('Music artist is required'),
     audio: Yup.mixed()
       .required('Artist image is required')
-      .test('fileSize', 'File Size is too large (Max 15 MB)', (value) => (value ? value.size <= 1024 * 1024 * 15 : null)),
+      .test('fileSize', 'File Size is too large (Max 15 MB)', (value) =>
+        value ? value.size <= 1024 * 1024 * 15 : null
+      ),
   });
 
   const year = () => {
@@ -84,7 +88,10 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
     <Fragment>
       <div className='add-music-container'>
         <h1>Add Music</h1>
-        <Formik onSubmit={onSubmit} initialValues={initialValues} validationSchema={validationSchema}>
+        <Formik
+          onSubmit={onSubmit}
+          initialValues={initialValues}
+          validationSchema={validationSchema}>
           {(formik) => {
             return (
               <Form>
@@ -128,10 +135,22 @@ const AddMusic = ({ loadArtists, artists, addMusic }) => {
                     <ErrorMessage name='img' component={ErrorText} />
                   </div>
                   <div id='music-year'>
-                    <FormControl control='select' options={year()} name='year' label='Released Year' id='music-year' />
+                    <FormControl
+                      control='select'
+                      options={year()}
+                      name='year'
+                      label='Released Year'
+                      id='music-year'
+                    />
                   </div>
                   <div id='music-artist'>
-                    <FormControl control='select' options={artistList()} name='artistId' label='Artist' id='music-artist' />
+                    <FormControl
+                      control='select'
+                      options={artistList()}
+                      name='artistId'
+                      label='Artist'
+                      id='music-artist'
+                    />
                   </div>
                   <div className='form-file' id='music-audio'>
                     <label className='input label-input-file'>

@@ -12,9 +12,9 @@ exports.approvePayment = async (req, res) => {
 
     const transaction = await Transaction.findOne({ where: { id: transactionId } });
 
-    const until = new Date(user.until).getTime();
+    const until = new Date(user.until).getTime(); //value dalam milisecon
 
-    const now = Date.now();
+    const now = Date.now(); // dalam mili secon
 
     if (until < now && transaction.status !== 'APPROVED') {
       const days = Date.now() / (24 * 60 * 60 * 1000) + 30;

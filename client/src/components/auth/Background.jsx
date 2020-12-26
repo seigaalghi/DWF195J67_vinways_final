@@ -7,7 +7,8 @@ const Background = ({ form, link }) => {
   return (
     <div className='background'>
       <nav className='user-nav'>
-        <span>C</span> <img src={kasetlittle} alt='logo' /> <span className='color-primary'>Ways</span>
+        <span>C</span> <img src={kasetlittle} alt='logo' />{' '}
+        <span className='color-primary'>Ways</span>
       </nav>
       <div className='background-container'>
         <h1>Listening is</h1>

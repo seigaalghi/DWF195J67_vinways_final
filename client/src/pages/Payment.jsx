@@ -48,7 +48,8 @@ const Payment = ({ uploadPayment }) => {
       <div className='payment'>
         <h1>Premium</h1>
         <p>
-          Bayar sekarang dan nikmati streaming music yang kekinian dari Co <span className='coways'>Ways</span>
+          Bayar sekarang dan nikmati streaming music yang kekinian dari Co{' '}
+          <span className='coways'>Ways</span>
         </p>
         <p>
           Co <span className='coways'>Ways</span> : 0981312323
@@ -72,7 +73,15 @@ const Payment = ({ uploadPayment }) => {
               </Fragment>
             )}
 
-            <input type='file' id='input-file' className='input-file' accept='image/*' onChange={fileHandler} name='payment' required />
+            <input
+              type='file'
+              id='input-file'
+              className='input-file'
+              accept='image/*'
+              onChange={fileHandler}
+              name='payment'
+              required
+            />
           </label>
 
           <input type='submit' className='btn btn-big' />

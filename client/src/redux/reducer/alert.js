@@ -21,6 +21,10 @@ const alertReducer = (state = initialState, action) => {
         message: payload.message,
         alertType: payload.alertType,
         loading: false,
+        uploadProgress: {
+          progress: 0,
+          isOpen: false,
+        },
       };
     case SET_UPLOAD:
       return {

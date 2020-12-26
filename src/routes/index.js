@@ -14,7 +14,13 @@ const { uploader } = require('../../middlewares/uploader');
 
 // Artist Actions
 
-const { getArtists, getArtist, postArtist, putArtist, deleteArtist } = require('../controllers/artist');
+const {
+  getArtists,
+  getArtist,
+  postArtist,
+  putArtist,
+  deleteArtist,
+} = require('../controllers/artist');
 
 // Music Actions
 
@@ -26,7 +32,13 @@ const { getUsers, getUser, deleteUser } = require('../controllers/user');
 
 // Transaction Actions
 
-const { getTransactions, getTransaction, postTransaction, putTransaction, deleteTransaction } = require('../controllers/transaction');
+const {
+  getTransactions,
+  getTransaction,
+  postTransaction,
+  putTransaction,
+  deleteTransaction,
+} = require('../controllers/transaction');
 
 // Transaction Actions
 

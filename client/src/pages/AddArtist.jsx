@@ -30,7 +30,9 @@ const AddArtist = ({ addArtist }) => {
   const validationSchema = Yup.object({
     img: Yup.mixed()
       .required('Artist image is required')
-      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) => (value ? value.size <= 1024 * 1024 * 1 : null)),
+      .test('fileSize', 'File Size is too large (Max 1 MB)', (value) =>
+        value ? value.size <= 1024 * 1024 * 1 : null
+      ),
     name: Yup.string().required('Artist name is required'),
     age: Yup.string()
       .matches(/^[0-9]*$/, 'Age must be numbers only')
@@ -75,7 +77,10 @@ const AddArtist = ({ addArtist }) => {
     <Fragment>
       <div className='add-artist-container'>
         <h1>Add Artist</h1>
-        <Formik onSubmit={onSubmit} initialValues={initialValues} validationSchema={validationSchema}>
+        <Formik
+          onSubmit={onSubmit}
+          initialValues={initialValues}
+          validationSchema={validationSchema}>
           {(formik) => {
             return (
               <Form>
@@ -84,10 +89,22 @@ const AddArtist = ({ addArtist }) => {
                     <FormControl control='input' type='text' name='name' label='Name' />
                   </div>
                   <div id='artist-age'>
-                    <FormControl control='input' type='text' name='age' label='Age' id='artist-age' />
+                    <FormControl
+                      control='input'
+                      type='text'
+                      name='age'
+                      label='Age'
+                      id='artist-age'
+                    />
                   </div>
                   <div id='artist-category'>
-                    <FormControl control='select' options={category} name='type' label='Category' id='artist-category' />
+                    <FormControl
+                      control='select'
+                      options={category}
+                      name='type'
+                      label='Category'
+                      id='artist-category'
+                    />
                   </div>
                   <div className='form-file' id='artist-image'>
                     <label className='input label-input-file'>
@@ -125,7 +142,13 @@ const AddArtist = ({ addArtist }) => {
                     <ErrorMessage name='img' component={ErrorText} />
                   </div>
                   <div id='artist-start'>
-                    <FormControl control='select' options={year()} name='start' label='Start at' id='artist-start' />
+                    <FormControl
+                      control='select'
+                      options={year()}
+                      name='start'
+                      label='Start at'
+                      id='artist-start'
+                    />
                   </div>
                   <input type='submit' className='btn btn-big' id='artist-submit' />
                 </div>

@@ -2,10 +2,19 @@ import React, { Fragment, useEffect } from 'react';
 import Table from '../components/transaction/Table';
 import { connect } from 'react-redux';
 import { loadPayments } from '../redux/action/payment';
-import Loading from '../components/Loading';
+import Loading from '../components/universal/Loading';
 
 const ListTrans = ({ payment: { transactions, loading }, loadPayments }) => {
-  const headers = ['ID', 'Name', 'Account Number', 'Transfer Proof', 'Remaining Active', 'Status User', 'Status Payment', 'Action'];
+  const headers = [
+    'ID',
+    'Name',
+    'Account Number',
+    'Transfer Proof',
+    'Remaining Active',
+    'Status User',
+    'Status Payment',
+    'Action',
+  ];
 
   useEffect(() => {
     loadPayments();

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userLogout } from '../../redux/action/auth';
-import Loading from '../Loading';
+import Loading from '../universal/Loading';
 
 const DropDown = ({ auth: { loading, user }, userLogout }) => {
   const [open, setOpen] = useState(false);

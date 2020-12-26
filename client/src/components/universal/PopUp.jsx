@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeAlert } from '../redux/action/alert';
+import { removeAlert } from '../../redux/action/alert';
 
 const PopUp = ({ alert, removeAlert }) => {
   const { message, alertType, isOpen } = alert;

@@ -2,10 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { deleteUser, loadUsers } from '../redux/action/auth';
 import { deleteArtist, deleteMusic, loadArtists, loadMusics } from '../redux/action/music';
-import Loading from '../components/Loading';
-import Confirm from '../components/Confirm';
+import Loading from '../components/universal/Loading';
+import Confirm from '../components/universal/Confirm';
 
-const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArtist, deleteMusic, deleteUser }) => {
+const Management = ({
+  auth,
+  music,
+  loadUsers,
+  loadMusics,
+  loadArtists,
+  deleteArtist,
+  deleteMusic,
+  deleteUser,
+}) => {
   const [userOpen, setUserOpen] = useState(false);
   const [musicOpen, setMusicOpen] = useState(false);
   const [artistOpen, setArtistOpen] = useState(false);
@@ -77,7 +86,12 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
     <Loading />
   ) : (
     <div className='management'>
-      <Confirm message={confirm.message} close={closeHandler} isOpen={confirm.isOpen} confirm={confirm.confirm} />
+      <Confirm
+        message={confirm.message}
+        close={closeHandler}
+        isOpen={confirm.isOpen}
+        confirm={confirm.confirm}
+      />
       <h1>Management</h1>
       <div className='openner' onClick={() => setUserOpen(!userOpen)}>
         <hr />
@@ -117,7 +131,11 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
       <div className='openner' onClick={() => setArtistOpen(!artistOpen)}>
         <hr />
         <h2>Artist</h2>
-        {artistOpen ? <i className='fas fa-chevron-up'></i> : <i className='fas fa-chevron-down'></i>}
+        {artistOpen ? (
+          <i className='fas fa-chevron-up'></i>
+        ) : (
+          <i className='fas fa-chevron-down'></i>
+        )}
         <hr />
       </div>
       {artistOpen ? (
@@ -152,7 +170,11 @@ const Management = ({ auth, music, loadUsers, loadMusics, loadArtists, deleteArt
       <div className='openner' onClick={() => setMusicOpen(!musicOpen)}>
         <hr />
         <h2>Music</h2>
-        {musicOpen ? <i className='fas fa-chevron-up'></i> : <i className='fas fa-chevron-down'></i>}
+        {musicOpen ? (
+          <i className='fas fa-chevron-up'></i>
+        ) : (
+          <i className='fas fa-chevron-down'></i>
+        )}
         <hr />
       </div>
       {musicOpen ? (
@@ -192,4 +214,11 @@ const mapStateToProps = (state) => ({
   music: state.music,
 });
 
-export default connect(mapStateToProps, { loadUsers, loadMusics, loadArtists, deleteArtist, deleteMusic, deleteUser })(Management);
+export default connect(mapStateToProps, {
+  loadUsers,
+  loadMusics,
+  loadArtists,
+  deleteArtist,
+  deleteMusic,
+  deleteUser,
+})(Management);

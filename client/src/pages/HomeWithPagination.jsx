@@ -3,7 +3,7 @@ import Contents from '../components/home/Contents';
 import SliderImg from '../components/home/SliderImg';
 import { cleanMusic, loadArtists, loadMusics } from '../redux/action/music';
 import { connect } from 'react-redux';
-import Loading from '../components/Loading';
+import Loading from '../components/universal/Loading';
 
 const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, musics } }) => {
   const [listMusic, setListMusic] = useState([]);
@@ -44,7 +44,9 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
 
   const searchhandler = (e) => {
     const list = musics
-      .map((music) => (music.title.toLowerCase().includes(e.target.value.toLowerCase()) ? music : null))
+      .map((music) =>
+        music.title.toLowerCase().includes(e.target.value.toLowerCase()) ? music : null
+      )
       .filter((music) => music !== null);
     setSearch(list);
   };
@@ -60,7 +62,10 @@ const Home = ({ loadMusics, loadArtists, cleanMusic, music: { loading, artists, 
       </div>
       <div className='pagination'>
         <label htmlFor='per-page'>Music per page</label>
-        <select value={musicPerPage} onChange={(e) => setMusicPerPage(e.target.value)} id='per-page'>
+        <select
+          value={musicPerPage}
+          onChange={(e) => setMusicPerPage(e.target.value)}
+          id='per-page'>
           <option value='12'>12</option>
           <option value='24'>24</option>
           <option value='36'>36</option>

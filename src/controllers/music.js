@@ -11,10 +11,11 @@ exports.getMusics = async (req, res) => {
     const user = await User.findOne({ where: { id } });
     const until = new Date(user.until).getTime();
     const now = Date.now();
+
     if (until < now) {
       const musics = await Music.findAll({
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'ArtistId', 'audio'],
+          exclude: ['updatedAt', 'ArtistId', 'audio'],
         },
         include: [
           {
@@ -44,7 +45,7 @@ exports.getMusics = async (req, res) => {
     } else {
       const musics = await Music.findAll({
         attributes: {
-          exclude: ['createdAt', 'updatedAt', 'ArtistId'],
+          exclude: ['updatedAt', 'ArtistId'],
         },
         include: [
           {

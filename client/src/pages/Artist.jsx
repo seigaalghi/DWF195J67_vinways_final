@@ -3,7 +3,7 @@ import Contents from '../components/home/Contents';
 import { useParams } from 'react-router-dom';
 import { loadArtist } from '../redux/action/music';
 import { connect } from 'react-redux';
-import Loading from '../components/Loading';
+import Loading from '../components/universal/Loading';
 
 const Artist = ({ music: { artist, loading }, loadArtist }) => {
   const { artistId } = useParams();

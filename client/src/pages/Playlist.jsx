@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Contents from '../components/home/Contents';
 import { connect } from 'react-redux';
-import Loading from '../components/Loading';
+import Loading from '../components/universal/Loading';
 
 const Playlist = ({ auth: { loading, user } }) => {
   return loading || !user ? (
