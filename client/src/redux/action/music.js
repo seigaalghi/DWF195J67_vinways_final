@@ -13,6 +13,7 @@ import {
   DELETE_ARTIST,
   REMOVE_PLAYLIST_LIKE,
   ADD_PLAYLIST_LIKE,
+  LOAD_MUSIC_LIST,
 } from '../types';
 import { setAlert, setUpload } from './alert';
 import { closePlayer } from './player';
@@ -27,6 +28,28 @@ export const loadMusics = (limit) => async (dispatch) => {
     dispatch({
       type: LOAD_MUSICS,
       payload: res.data.data,
+    });
+  } catch (error) {
+    if (error.response) {
+      if (error.response.data.message) {
+        dispatch(setAlert(error.response.data.message, 'danger'));
+      }
+    }
+    dispatch({
+      type: MUSIC_ERROR,
+    });
+  }
+};
+// =========================================================================================
+// LOAD MUSIC List
+// =========================================================================================
+
+export const loadMusicList = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/v1/musics/9999`);
+    dispatch({
+      type: LOAD_MUSIC_LIST,
+      payload: res.data.data.musics.rows,
     });
   } catch (error) {
     if (error.response) {

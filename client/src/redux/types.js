@@ -41,6 +41,7 @@ export const ADD_LIKE = 'ADD_LIKE';
 export const REMOVE_LIKE = 'REMOVE_LIKE';
 export const ADD_PLAYLIST = 'ADD_PLAYLIST';
 export const REMOVE_PLAYLIST = 'REMOVE_PLAYLIST';
+export const LOAD_MUSIC_LIST = 'LOAD_MUSIC_LIST';
 
 // =====================================================
 // PLAYER

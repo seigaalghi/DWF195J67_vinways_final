@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import H5AudioPlayer from 'react-h5-audio-player';
 import { connect } from 'react-redux';
 import { closePlayer, setPlayer } from '../../redux/action/player';
-import { addLike, loadMusics, removeLike } from '../../redux/action/music';
+import { addLike, loadMusicList, removeLike } from '../../redux/action/music';
 import { addPlaylist, removePlaylist } from '../../redux/action/auth';
 import Loading from '../universal/Loading';
 
 const MusicPlayer = ({
   player: { music, queue, loading },
-  musics,
+  musicList,
   auth: { user },
   setPlayer,
   closePlayer,
@@ -16,23 +16,23 @@ const MusicPlayer = ({
   removeLike,
   addPlaylist,
   removePlaylist,
-  loadMusics,
+  loadMusicList,
 }) => {
   const [musicPlayer, setMusicPlayer] = useState({});
 
   useEffect(() => {
-    loadMusics(9999);
-  }, [loadMusics]);
+    loadMusicList(9999);
+  }, [loadMusicList]);
 
   useEffect(() => {
-    if (music && musics) {
+    if (music && musicList) {
       const player = async () => {
-        const res = await musics.find((msc) => msc.id === music.id);
+        const res = await musicList.find((msc) => msc.id === music.id);
         setMusicPlayer(res);
       };
       player();
     }
-  }, [musics, music]);
+  }, [music, musicList]);
 
   const nextHandler = () => {
     const index = queue.map((que) => que.id).indexOf(music.id);
@@ -68,7 +68,7 @@ const MusicPlayer = ({
     removePlaylist(id);
   };
 
-  return music && musicPlayer.likes && !loading ? (
+  return music && musicPlayer && !loading ? (
     <div className='music-player-container'>
       <p>{musicPlayer.title ? musicPlayer.title : ''}</p>
       {musicPlayer.img ? (
@@ -87,13 +87,15 @@ const MusicPlayer = ({
         volume={0.5}
       />
       <div className='action'>
-        {!musicPlayer.likes.find((like) => like.id === user.id) ? (
-          <i className='far fa-heart' onClick={(e) => likeHandler(e, musicPlayer.id)}></i>
-        ) : (
-          <i
-            className='fas fa-heart color-danger'
-            onClick={(e) => dislikeHandler(e, musicPlayer.id)}></i>
-        )}
+        {musicPlayer.likes ? (
+          !musicPlayer.likes.find((like) => like.id === user.id) ? (
+            <i className='far fa-heart' onClick={(e) => likeHandler(e, musicPlayer.id)}></i>
+          ) : (
+            <i
+              className='fas fa-heart color-danger'
+              onClick={(e) => dislikeHandler(e, musicPlayer.id)}></i>
+          )
+        ) : null}
 
         {!user.playlists.find((play) => play.id === musicPlayer.id) ? (
           <i className='fas fa-plus' onClick={(e) => addPlaylistHandler(e, musicPlayer.id)}></i>
@@ -118,7 +120,7 @@ const MusicPlayer = ({
 const mapStateToProps = (state) => ({
   player: state.player,
   auth: state.auth,
-  musics: state.music.musics,
+  musicList: state.music.musicList,
 });
 
 export default connect(mapStateToProps, {
@@ -128,5 +130,5 @@ export default connect(mapStateToProps, {
   removeLike,
   addPlaylist,
   removePlaylist,
-  loadMusics,
+  loadMusicList,
 })(MusicPlayer);

@@ -9,6 +9,7 @@ const {
   ADD_MUSIC,
   DELETE_MUSIC,
   DELETE_ARTIST,
+  LOAD_MUSIC_LIST,
 } = require('../types');
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   artist: null,
   music: null,
   count: null,
+  musicList: null,
 };
 
 const musicReducer = (state = initialState, action) => {
@@ -47,6 +49,7 @@ const musicReducer = (state = initialState, action) => {
     case CLEAN_MUSIC:
       return {
         ...state,
+        musics: null,
         loading: true,
       };
     case LOAD_ARTISTS:
@@ -84,6 +87,11 @@ const musicReducer = (state = initialState, action) => {
       return {
         ...state,
         artists: state.artists.filter((artist) => artist.id !== payload.ArtistId),
+      };
+    case LOAD_MUSIC_LIST:
+      return {
+        ...state,
+        musicList: payload,
       };
     default:
       return state;

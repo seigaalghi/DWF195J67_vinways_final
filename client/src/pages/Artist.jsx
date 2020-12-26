@@ -50,7 +50,7 @@ const Artist = ({ music: { artist, loading }, loadArtist }) => {
           </div>
         </div>
 
-        <Contents musics={artist.musics} queue={artist.musics} count={artist.musics.length} />
+        <Contents musics={artist.musics} queue={artist.musics} />
       </div>
     </Fragment>
   );
