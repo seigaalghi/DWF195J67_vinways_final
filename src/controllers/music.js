@@ -6,73 +6,39 @@ const Joi = require('joi');
 // =================================================================================
 
 exports.getMusics = async (req, res) => {
-  const { id } = req.user;
+  const limit = parseInt(req.params.limit);
   try {
-    const user = await User.findOne({ where: { id } });
-    const until = new Date(user.until).getTime();
-    const now = Date.now();
-
-    if (until < now) {
-      const musics = await Music.findAll({
-        attributes: {
-          exclude: ['updatedAt', 'ArtistId', 'audio'],
+    const musics = await Music.findAndCountAll({
+      limit,
+      distinct: true,
+      attributes: {
+        exclude: ['updatedAt', 'ArtistId'],
+      },
+      include: [
+        {
+          model: User,
+          through: { attributes: [] },
+          as: 'likes',
+          attributes: ['id', 'name'],
         },
-        include: [
-          {
-            model: User,
-            through: { attributes: [] },
-            as: 'likes',
-            attributes: ['id', 'name'],
-          },
-          {
-            model: Artist,
-            as: 'artist',
-            attributes: ['id', 'name'],
-          },
-        ],
-        order: [
-          ['createdAt', 'DESC'],
-          [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
-        ],
-      });
-      return res.status(200).json({
-        status: 'success',
-        message: 'Musics loaded successfully',
-        data: {
-          musics,
+        {
+          model: Artist,
+          as: 'artist',
+          attributes: ['id', 'name'],
         },
-      });
-    } else {
-      const musics = await Music.findAll({
-        attributes: {
-          exclude: ['updatedAt', 'ArtistId'],
-        },
-        include: [
-          {
-            model: User,
-            through: { attributes: [] },
-            as: 'likes',
-            attributes: ['id', 'name'],
-          },
-          {
-            model: Artist,
-            as: 'artist',
-            attributes: ['id', 'name'],
-          },
-        ],
-        order: [
-          ['createdAt', 'DESC'],
-          [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
-        ],
-      });
-      return res.status(200).json({
-        status: 'success',
-        message: 'Musics loaded successfully',
-        data: {
-          musics,
-        },
-      });
-    }
+      ],
+      order: [
+        ['createdAt', 'DESC'],
+        [{ model: User, as: 'likes' }, 'createdAt', 'DESC'],
+      ],
+    });
+    return res.status(200).json({
+      status: 'success',
+      message: 'Musics loaded successfully',
+      data: {
+        musics,
+      },
+    });
   } catch (error) {
     console.log(error);
     res.satus(500).json({

@@ -5,6 +5,7 @@ import { setPlayer, setQueue } from '../../redux/action/player';
 import { addLike, removeLike } from '../../redux/action/music';
 import { addPlaylist, removePlaylist } from '../../redux/action/auth';
 import Loading from '../universal/Loading';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const Contents = ({
   musics,
@@ -17,6 +18,8 @@ const Contents = ({
   removeLike,
   addPlaylist,
   removePlaylist,
+  count,
+  next,
 }) => {
   const handlerMusic = (music) => {
     if (auth.user.premium) {
@@ -48,7 +51,12 @@ const Contents = ({
     <Loading />
   ) : (
     <div>
-      <div className='content-container'>
+      <InfiniteScroll
+        className='content-container'
+        hasMore={musics.length < count}
+        loader={<h3 id='load-more'>Loading...</h3>}
+        next={() => setTimeout(() => next(), 1000)}
+        dataLength={musics.length}>
         {musics.map((music, index) => (
           <div className='contents' key={index} onClick={() => handlerMusic(music)}>
             <img src={music.img} alt={music.title} />
@@ -85,7 +93,7 @@ const Contents = ({
             </div>
           </div>
         ))}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 };

@@ -1071,3 +1071,12 @@ div.modal-container div.transaction-modal img {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+#load-more {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: #363954;
+  text-align: center;
+}

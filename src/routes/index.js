@@ -68,7 +68,7 @@ const { fileDownload } = require('../controllers/file');
 // Music
 // ------------------------------------------------
 
-router.get('/musics', auth, getMusics);
+router.get('/musics/:limit', auth, getMusics);
 router.get('/music/:id', auth, getMusic);
 router.post('/music', auth, adminAuth, uploader('img', 'audio'), postMusic);
 router.put('/music/:id', auth, adminAuth, uploader('img', 'audio'), putMusic);

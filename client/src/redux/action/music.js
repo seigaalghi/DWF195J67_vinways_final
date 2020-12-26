@@ -21,9 +21,9 @@ import { closePlayer } from './player';
 // LOAD MUSIC
 // =========================================================================================
 
-export const loadMusics = () => async (dispatch) => {
+export const loadMusics = (limit) => async (dispatch) => {
   try {
-    const res = await axios.get('/api/v1/musics');
+    const res = await axios.get(`/api/v1/musics/${limit}`);
     dispatch({
       type: LOAD_MUSICS,
       payload: res.data.data,
