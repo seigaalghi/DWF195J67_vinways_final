@@ -2,5 +2,4 @@ node_modules
 uploads
 build
 npm-debug.log
-.env
 .DS_Store
